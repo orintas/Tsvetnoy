@@ -18,4 +18,7 @@ angular.module('service', ['ngResource']).
    }]).
    factory('Goods', ['resourceFactory', function (resourceFactory) {
       return resourceFactory.create('goods');
+   }]).
+   factory('SendMail', ['resourceFactory', function (resourceFactory) {
+      return resourceFactory.create('sendMail');
    }]);

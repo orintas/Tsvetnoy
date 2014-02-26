@@ -11,7 +11,7 @@
                     <strong>Форма обратной связи</strong>
                 </div>
                 <div class="panel-body" style="margin: 0px 15px 1px 15px;">
-                    <form role="form" class="form-horizontal">
+                    <form role="form" class="form-horizontal" ng-controller="contactFormCtrl">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-default">Отправить</button>
+                                <button type="submit" class="btn btn-default" ng-click="sendMail()">Отправить</button>
                             </div>
                         </div>
                     </form>
