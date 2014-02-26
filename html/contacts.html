@@ -1,0 +1,127 @@
+<div class="container angular" ng-controller="contactsCtl">
+    <div class="row">
+        <div class="page-header">
+            <h2>Контакты</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Форма обратной связи</strong>
+                </div>
+                <div class="panel-body" style="margin: 0px 15px 1px 15px;">
+                    <form role="form" class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user text-primary"></span></span>
+                                        <input type="text" class="form-control" placeholder="Ваше имя">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="text-primary"><strong>@</strong></span></span>
+                                        <input type="email" class="form-control" placeholder="E-mail">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt text-primary"></span></span>
+                                        <input type="tel" class="form-control" placeholder="Телефон">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-md-offset-1">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="6" placeholder="Текст сообщения"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-default">Отправить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <strong>Склад</strong>
+                </div>
+                <div class="panel-body" style="margin: 0px 15px 0px 15px;">
+                    <address>
+                        <strong>Адрес</strong><br>
+                        122371, Москва, Сигнальный проезд, 16, строение 3<br>
+                    </address>
+                    <address>
+                        <strong>Телефон</strong><br>
+                        {{ phone }}
+                    </address>
+                    <address>
+                        <strong>E-mail</strong><br>
+                        <a href="mailto:{{ email }}">{{ email }}</a>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-sm-11 col-xs-11">
+            <h4>ТЦ Вегас </h4>
+            <address>
+                город Москва, 24 км МКАД Х Каширское ш.<br>
+                <a href="http://kashirskoe.vegas-city.ru/">kashirskoe.vegas-city.ru</a>
+            </address>
+            <p>
+                <button class="btn btn-primary" type="button"> подробнее </button>
+            </p>
+        </div>
+        <div class="col-md-4 col-sm-11 col-xs-11">
+            <h4>ТЦ Рубин </h4>
+            <address>
+                город Тверь, пр-т Калинина, 15 стр. 1<br>
+                <a href="http://www.rubin69.ru/">www.rubin69.ru</a>
+            </address>
+            <p>
+                <button class="btn btn-warning" type="button"> подробнее </button>
+            </p>
+        </div>
+        <div class="col-md-4 col-sm-11 col-xs-11">
+            <h4>ТЦ Корстон </h4>
+            <address>
+                город Серпухов, Борисовское шоссе, 1<br>
+                <a href="http://www.korston.ru/serpukhov/shares-shops/">www.korston.ru/serpukhov/shares-shops</a>
+            </address>
+            <p>
+                <button class="btn btn-success" type="button"> подробнее </button>
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="http://art-elite.ru"><img class="art-elite" src="img/logo_art_elite.png" alt="art-elite.ru"/></a>
+        </div>
+        <div class="col-md-8">
+            <h4><a href="http://art-elite.ru">Интернет магазин - "Раскраски по номерам"</a></h4>
+            <dl class="dl-horizontal">
+                <dt>Адрес: </dt>
+                <dd><a href="http://art-elite.ru">art-elite.ru</a></dd>
+                <dt>Телефон: </dt>
+                <dd>+7 (495) 641-67-49</dd>
+            </dl>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+       <div class="col-md-12">
+           <script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=X-OeSAz2_ApscIM2mVrX4HG5g7kY36Wl&height=300"></script>
+        </div>
+    </div>
+</div>

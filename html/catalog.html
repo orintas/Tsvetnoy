@@ -1,0 +1,127 @@
+<div class="container angular" ng-controller="catalogCtrl">
+    <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-12">
+            <h2>Каталог</h2>
+        </div>
+        <div class="col-md-3 col-md-push-7 col-sm-6 col-sm-push-0 col-xs-12 col-xs-push-0 margin-top-vertical">
+            <form role="form" class="form-inline" ng-submit="searchCtl()">
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-model="search" ng-blur="searchCtl()" ng-disabled="isLoading">
+                    <span class="input-group-btn"><button type="search" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
+                </p>
+            </form>
+        </div>
+        <div class="col-md-7 col-md-pull-3 col-sm-12 col-sm-pull-0 col-xs-12 col-xs-pull-0 margin-top-vertical">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-danger" ng-click="discontCalcVisible = !discontCalcVisible"> Скидка: <strong>{{ discont }}%</strong></a>
+            </div>
+                <!--div class="btn-group">
+                    <button type="button" class="btn btn-warning"> Фильтр: <strong>*</strong></button>
+                </div-->
+        </div>
+
+    </div>
+    <!--div class="row" ng-show="discontCalcVisible">
+        <div class="col-md-3 alert">
+            Калькулятор<button type="button" class="close" aria-hidden="true" ng-click="discontCalcVisible = false">&times;</button>
+        </div>
+    </div-->
+    <div class="row margin-top-vertical" ng-controller="calculatorCtrl" ng-show="discontCalcVisible">
+        <div class="col-md-12">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    Калькулятор скидки<button type="button" class="close" aria-hidden="true" ng-click="$parent.discontCalcVisible = false">&times;</button>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                            <h5>
+                                Сумма: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Предполагаемая сумма заказа"></span>
+                            </h5>
+                        </div>
+                        <div class="col-xs-6 col-xs-push-0 col-sm-2 col-sm-push-8 text-center"><h5>{{ orderSum | currency:''}}р</h5></div>
+                        <div class="col-xs-10 col-xs-offset-1 col-xs-pull-0 col-sm-8 col-sm-pull-2 col-sm-offset-0 margin-top-vertical2" id="orderSumSlider" ></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                            <h5>
+                                Cкидка: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Желаемый размер скидки"></span>
+                            </h5>
+                        </div>
+                        <div class="col-xs-6 col-xs-push-0 col-sm-2 col-sm-push-8 text-center"><h5>{{ discont }}%</h5></div>
+                        <div class="col-xs-10 col-xs-offset-1 col-xs-pull-0 col-sm-8 col-sm-pull-2 col-sm-offset-0 margin-top-vertical2" id="discontSlider" ></div>
+                    </div>
+                    <div class="row" ng-hide="!discont">
+                        <div class="col-sm-2">
+                            <h5>
+                                Условия: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Условия предоставления выбранной скидки"></span>
+                            </h5>
+                        </div>
+                        <div class="col-sm-4 text-center" ng-hide="discont < 10"><h5><a href="/brandshop.html">Магазин "Цветной"&nbsp;<span class="glyphicon glyphicon-registration-mark"></span></a><span ng-hide="discont < 15"> и {{ smallBonus | currency:'' }} <a href="/bonus.html">бонусов</a></span></h5></div>
+                        <div class="col-sm-2 text-center" ng-hide="discont < 10"><h5>ИЛИ</h5></div>
+                        <div class="col-sm-4 text-center"><h5>{{ bigBonus| currency:'' }} <a href="/bonus.html">бонусов</a></h5></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-sm hidden-xs">
+        <div class="col-md-1" ng-hide="isLoading"><strong>#</strong></div>
+        <div class="col-md-8 col-md-offset-1" ng-hide="isLoading"><strong>Название</strong></div>
+        <div class="col-md-2 text-right" ng-hide="isLoading"><!--img src="http://img.artlebedev.ru/tools/technogrette/html/rouble/ruble.gif" height="15px"/--><strong>Стоимость</strong></div>
+    </div>
+    <div infinite-scroll="loadGoods()" infinite-scroll-distance="2">
+        <div ng-repeat="good in displayGoods | filter:searchText">
+            <div class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
+                <div class="col-md-1">{{good.productCode}}</div>
+                <div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
+                <div class="col-md-7 col-xs-6">{{good.name}}<br>40x50</div>
+                <div class="col-md-3 col-xs-3 text-right"><small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}</div>
+            </div>
+            <div class="row table-row" ng-click="$parent.preview = 0" ng-show="$parent.preview == good.productCode">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <img class="thumbnail" ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" style="display:table-cell; vertical-align:middle; text-align:center; padding: 5px;" width="270px" height="270px">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <dl class="dl-horizontal">
+                        <dt>Артикул</dt>
+                        <dd>{{good.productCode}}</dd>
+                        <dt>Название</dt>
+                        <dd>{{good.name}}</dd>
+                        <dt>Размер</dt>
+                        <dd>40x50 см</dd>
+                        <dt>Производитель</dt>
+                        <dd>Menglei</dd>
+                        <dt>Тип</dt>
+                        <dd>На холсте</dd>
+                        <dt>Сложность</dt>
+                        <dd>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <dl>
+                        <dt>Комплектация</dt>
+                        <dd>
+                            <ul class="list-unstyled">
+                                <li><span class="glyphicon glyphicon-plus"></span> Холст на подрамнике</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Акриловые краски</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Контрольный лист</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Три кисти</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Крепеж для подвешивания картины</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-lg-2 col-md-8 col-sm-12 col-xs-12 text-right">
+                    <span><strong>Цена без скидки </strong><br>{{((good.salePrice / 100) | currency:'') + 'р.'}}</span><br>
+                    <span><strong>Скидка ({{ discont }}%) </strong><br>{{((good.salePrice / 100) * (discont / 100) | currency:'') + 'р.'}}</span><br>
+                    <span><strong>Итого </strong><br>{{((good.salePrice / 100) * ((100 - discont) / 100) | currency:'') + 'р.'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Кампания Цветной, продажа живописи по номерам оптом и в розницу">
+    <title>[[++site_name]] - [[*pagetitle]]</title>
+    <link href="img/clacks.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular-resource.min.js"></script>
+    <script src="../assets/components/moysklad/js/config.js"></script>
+    <script src="../assets/components/moysklad/js/app.js"></script>
+    <script src="../js/ng-infinite-scroll.min.js"></script>
+    <script src="../assets/components/moysklad/js/catalog.js"></script>
+    <script src="../assets/components/moysklad/js/service.js"></script>
+
+</head>
+<body ng-app="app">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Навигация</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/main.html"><img src="../img/clacks.png" height="20px" ng-hide="isLoading"/><img src="../img/clacks.gif" height="20px" ng-show="isLoading"/> ЦВЕТНОЙ</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            [[!Wayfinder? &outerClass=`nav navbar-nav` &firstClass=`` &lastClass=`` &startId=`7` ]]
+            [[!Wayfinder? &outerClass=`nav navbar-nav navbar-right` &firstClass=`` &lastClass=`` &startId=`8` ]]
+        </div>
+    </div>
+</nav>
+[[*content]]
+<div class="bottom-spacer">&nbsp;</div>
+<nav class="navbar navbar-default navbar-fixed-bottom hidden-sm hidden-xs" role="navigation" ng-controller="contactsCtl">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><p class="navbar-text">&copy;&nbsp;"Цветной"&nbsp;2013</p></li>
+            <li><p class="navbar-text">тел: {{ phone }}</p></li>
+            <li><p class="navbar-text">email: {{ email }}</p></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a class="navbar-brand" href="/main.html"><img src="../img/clacks.png" height="20px" ng-hide="isLoading"/><img src="../img/clacks.gif" height="20px" ng-show="isLoading"/>&nbsp;ЦВЕТНОЙ</a></li>
+        </ul>
+    </div>
+</nav>
+<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>
