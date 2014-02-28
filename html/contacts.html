@@ -5,45 +5,45 @@
         </div>
     </div>
     <div class="row" ng-controller="contactFormCtrl">
-        <div class="col-md-12 alert alert-success" ng-show="mail.response">{{ mail.response }}</div>
-        <div class="col-md-12 alert alert-danger" ng-show="mail.error">{{ mail.error }}</div>
+        <div class="col-md-12 alert alert-success" ng-show="mailForm.response">{{ mailForm.response }}</div>
+        <div class="col-md-12 alert alert-danger" ng-show="mailForm.error">{{ mailForm.error }}</div>
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>Форма обратной связи</strong>
                 </div>
                 <div class="panel-body" style="margin: 0px 15px 1px 15px;">
-                    <form role="form" class="form-horizontal">
+                    <form role="form" class="form-horizontal" name="mailForm" ng-submit="sendMail()">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user text-primary"></span></span>
-                                        <input type="text" class="form-control" placeholder="Ваше имя" ng-model="mail.fio" ng-disabled="mail.isSent">
+                                        <input type="text" class="form-control" placeholder="Ваше имя" ng-model="mailForm.fio" ng-disabled="mailForm.isSent">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" ng-class="emailValidation()">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="text-primary"><strong>@</strong></span></span>
-                                        <input type="email" class="form-control" placeholder="E-mail" ng-model="mail.email" ng-disabled="mail.isSent">
+                                        <input type="email" class="form-control" name="email" placeholder="E-mail" ng-model="mailForm.email" ng-disabled="mailForm.isSent" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt text-primary"></span></span>
-                                        <input type="tel" class="form-control" placeholder="Телефон" ng-model="mail.phone" ng-disabled="mail.isSent">
+                                        <input type="tel" class="form-control" placeholder="Телефон" ng-model="mailForm.phone" ng-disabled="mailForm.isSent">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-5 col-md-offset-1">
                                 <div class="form-group">
-                                    <textarea class="form-control" rows="6" placeholder="Текст сообщения" ng-model="mail.text" ng-disabled="mail.isSent"></textarea>
+                                    <textarea class="form-control" rows="6" placeholder="Текст сообщения" ng-model="mailForm.text" ng-disabled="mailForm.isSent"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-default" ng-click="sendMail()" ng-disabled="mail.isSent">Отправить</button>
+                                <button type="submit" class="btn btn-default" ng-disabled="mailForm.$invalid">Отправить</button>
                             </div>
                         </div>
                     </form>

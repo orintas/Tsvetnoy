@@ -20,11 +20,15 @@ foreach ($goods as $good) {
 	$resultGoods[$i]['productCode'] = (string)$good['productCode'];
 	$codes[$i] = (string)$good['productCode'];
 	$resultGoods[$i]['salePrice'] = (double)$good['salePrice'];
+	foreach ($good->attribute as $attribute) {
+	    print_r($attribute);
+        $resultGoods[$i][(string)$attribute['metadataUuid']] = (string)($attribute->uuid);
+    }
 	$i++;
 }
 array_multisort($codes, SORT_ASC, $resultGoods);
 $result['good'] = $resultGoods;
-return json_encode($result);
+//return json_encode($result);
 //return json_encode($service->getGoods());
 /* Example XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -45,7 +49,7 @@ return json_encode($result);
 	archived="false" 
 	parentUuid="8e21b3fc-a14e-11e2-075a-001b21d91495" 
 	productCode="ME092" 
-	name="Дельфины" 
+	name="пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" 
 	updated="2014-02-03T15:33:33.636+04:00" 
 	updatedBy="admin@shalom" 
 	readMode="ALL" 
