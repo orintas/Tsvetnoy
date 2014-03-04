@@ -20,15 +20,18 @@ foreach ($goods as $good) {
 	$resultGoods[$i]['productCode'] = (string)$good['productCode'];
 	$codes[$i] = (string)$good['productCode'];
 	$resultGoods[$i]['salePrice'] = (double)$good['salePrice'];
+	$resultGoods[$i]['properties'] = array();
 	foreach ($good->attribute as $attribute) {
-	    print_r($attribute);
-        $resultGoods[$i][(string)$attribute['metadataUuid']] = (string)($attribute->uuid);
+	    //print_r($attribute);
+	    if (isset($attribute['entityValueUuid'])) {
+            $resultGoods[$i]['properties'][] = (string)$attribute['entityValueUuid'];
+        }
     }
 	$i++;
 }
 array_multisort($codes, SORT_ASC, $resultGoods);
 $result['good'] = $resultGoods;
-//return json_encode($result);
+return json_encode($result);
 //return json_encode($service->getGoods());
 /* Example XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,7 +47,7 @@ $result['good'] = $resultGoods;
 	countryUuid="fd44cd2e-b398-4222-9c43-f75688bdf327" 
 	supplierUuid="8845ff9c-a1ec-11e2-162e-001b21d91495" 
 	salePrice="43000.0" 
-	saleCurrencyUuid="68a11ec6-a14e-11e2-bb85-001b21d91495" 
+	saleCurrencyUuid="68a11ec6-a14e-11e2-bb85-001b21d91495"
 	buyCurrencyUuid="68a11ec6-a14e-11e2-bb85-001b21d91495" 
 	archived="false" 
 	parentUuid="8e21b3fc-a14e-11e2-075a-001b21d91495" 

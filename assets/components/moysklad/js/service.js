@@ -21,4 +21,7 @@ angular.module('service', ['ngResource']).
    }]).
    factory('SendMail', ['resourceFactory', function (resourceFactory) {
       return resourceFactory.create('sendMail');
+   }]).
+   factory('Entities', ['resourceFactory', function (resourceFactory) {
+      return resourceFactory.create('entities');
    }]);

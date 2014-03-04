@@ -39,11 +39,21 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       });
       $('.calculatorTooltip').tooltip();
    }]).
-   controller('catalogCtrl', ['$scope', '$rootScope', 'Goods', function($scope, $rootScope, Goods) {
+   controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'Loading', function($scope, Goods, Entities, Loading) {
       $scope.displayGoods = [];
       $scope.preview = 0;
       $scope.discontCalcVisible = false;
       var goodsIsLoaded = false;
+
+      Loading.pushLoad('Entities');
+      Entities.get({}, function (response) {
+         $scope.entities = response;
+         Loading.popLoad('Entities');
+      }, function (response) {
+         $scope.error = response;
+         Loading.popLoad('Entities');
+      });
+
       var addDisplayGoods = function(beginIndex, count) {
          for (var i = beginIndex; i < beginIndex + count; i++) {
             $scope.displayGoods.push($scope.goods.good[i]);
@@ -51,24 +61,24 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       };
 
       $scope.searchCtl = function() {
-         $rootScope.isLoading = true;
+         Loading.pushLoad('goods');
          while ($scope.displayGoods.length < $scope.goods.good.length) {
             addDisplayGoods($scope.displayGoods.length, Math.min($scope.goods.good.length - $scope.displayGoods.length, 10));
          }
          $scope.searchText = $scope.search;
-         $rootScope.isLoading = false;
+         Loading.popLoad('goods');
       };
       $scope.loadGoods = function () {
          if (!goodsIsLoaded) {
-            $rootScope.isLoading = true;
+            Loading.pushLoad('goods');
             Goods.get({}, function (response) {
                $scope.goods = response;
                goodsIsLoaded = true;
                addDisplayGoods($scope.displayGoods.length, Math.min($scope.goods.good.length, 30));
-               $rootScope.isLoading = false;
+               Loading.popLoad('goods');
              }, function (response) {
                $scope.error = response;
-               $rootScope.isLoading = false;
+               Loading.popLoad('goods');
             });
          } else {
             if ($scope.displayGoods.length < $scope.goods.good.length) {

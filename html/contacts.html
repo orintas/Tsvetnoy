@@ -43,7 +43,8 @@
                         </div>
                         <div class="row">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-default" ng-disabled="mailForm.$invalid">Отправить</button>
+                                <button type="submit" class="btn btn-default" ng-disabled="mailForm.$invalid || mailForm.isSent">Отправить</button>
+                                <button type="button" class="btn btn-default" ng-show="mailForm.isSent" ng-click="nextMessage()">Написать ещё</button>
                             </div>
                         </div>
                     </form>

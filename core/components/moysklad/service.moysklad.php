@@ -5,63 +5,68 @@ require_once('utils.moysklad.php');
 
 class MoySkladService {
 
-   private $entitiesIsLoad = false;
-   private $categories = array();
-   private $sizes = array();
-   private $manufacturies = array();
+    private $entitiesIsLoad = false;
+    private $categories = array();
+    private $sizes = array();
+    private $manufacturies = array();
 
-   private function sendRequest($url, $method, $body = '')
-   {
-      $sock = fsockopen(MoySkladConfig::URL, MoySkladConfig::PORT, $errno, $errstr, 30);
+    private function sendRequest($url, $method, $body = '')
+    {
+        $sock = fsockopen(MoySkladConfig::URL, MoySkladConfig::PORT, $errno, $errstr, 30);
 
-      if (!$sock) die("$errstr ($errno)\n");
+        if (!$sock) die("$errstr ($errno)\n");
 
-      fputs($sock, $method . " " . $url . " HTTP/1.1\r\n");
-      fputs($sock, "Host: online.moysklad.ru\r\n");
-      fputs($sock, "Authorization: Basic " . base64_encode(MoySkladConfig::AUTH) . "\r\n");
-      fputs($sock, "Content-Type: application/xml; charset=utf-8 \r\n");
-      fputs($sock, "Accept: */*\r\n");
-      fputs($sock, "Content-Length: ". mb_strlen($body) ."\r\n");
-      fputs($sock, "Connection: close\r\n\r\n");
-      fputs($sock, "$body" . "\r\n\r\n");
-    
-      while ($str = trim(fgets($sock, 4096)));
+        fputs($sock, $method . " " . $url . " HTTP/1.1\r\n");
+        fputs($sock, "Host: online.moysklad.ru\r\n");
+        fputs($sock, "Authorization: Basic " . base64_encode(MoySkladConfig::AUTH) . "\r\n");
+        fputs($sock, "Content-Type: application/xml; charset=utf-8 \r\n");
+        fputs($sock, "Accept: */*\r\n");
+        fputs($sock, "Content-Length: ". mb_strlen($body) ."\r\n");
+        fputs($sock, "Connection: close\r\n\r\n");
+        fputs($sock, "$body" . "\r\n\r\n");
 
-      $result = '';//stream_get_contents($sock);
-    
-      while (!feof($sock)) {
+        while ($str = trim(fgets($sock, 4096)));
+
+        $result = '';//stream_get_contents($sock);
+
+        while (!feof($sock)) {
          $result .= fgets($sock, 4096);
-      }
-      fclose($sock);
-      return http_chunked_decode($result);
-   }
+        }
+        fclose($sock);
+        return http_chunked_decode($result);
+    }
 
-   public function addOrder($order)
-   {
-      $result = $this->sendRequest("/exchange/rest/ms/xml/CustomerOrder", "PUT", $order->getXML());
-      $xml = new SimpleXMLElement($result);
-	   return $xml->uuid;
-   }
+    public function addOrder($order)
+    {
+        $result = $this->sendRequest("/exchange/rest/ms/xml/CustomerOrder", "PUT", $order->getXML());
+        $xml = new SimpleXMLElement($result);
+        return $xml->uuid;
+    }
 
-   public function deleteOrder($orderId)
-   {
-      return $this->sendRequest("/exchange/rest/ms/xml/CustomerOrder/" . $orderId, "DELETE", '');
-   }
+    public function deleteOrder($orderId)
+    {
+        return $this->sendRequest("/exchange/rest/ms/xml/CustomerOrder/" . $orderId, "DELETE", '');
+    }
 
-   public function getStock()
-   {
-      return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::SKLAD_ID, "GET"));
-   }
+    public function getStock()
+    {
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::SKLAD_ID, "GET"));
+    }
 
-   public function getGoods()
-   {
-      return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/Good/list", "GET"));
-   }
+    public function getGoods()
+    {
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/Good/list", "GET"));
+    }
+
+    public function getEntities()
+    {
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/CustomEntity/list", "GET"));
+    }
 
    private function loadEntities()
    {
-      $result = new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/CustomEntity/list", "GET"));
-      foreach($result->customEntity as $entity) {
+        $result = $this->getEntities();
+        foreach($result->customEntity as $entity) {
          switch($entity->attributes()->entityMetadataUuid) {
             case MoySkladConfig::SIZES_METADATA_UUID:
                $this->sizes[] = $entity;
@@ -71,10 +76,10 @@ class MoySkladService {
                break;
             case MoySkladConfig::MANUFACTURIES_METADATA_UUID:
                $this->manufacturies[] = $entity;
-               break; 
+               break;
          }
-      }
-      $this->entitiesIsLoad = true;
+        }
+        $this->entitiesIsLoad = true;
    }
 
    public function getSizes()
