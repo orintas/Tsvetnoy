@@ -12,13 +12,13 @@ angular.module('app', ['catalogMdl', 'sendMailMdl']).
    service('Loading', ['$rootScope', function($rootScope) {
       this.loading = [];
       this.pushLoad = function(id) {
+         console.log('Запрос ' + id + '(' + this.loading.length + ')');
          this.loading.push(id);
-         console.log('Загрузка ' + id + '(' + this.loading.length + ')');
          $rootScope.isLoading = true;
       };
       this.popLoad = function(id) {
-         this.loading.splice(this.loading.indexOf(id), 1);
-         console.log('Загрузка ' + id + ' завершена');
+         this. loading.splice(this.loading.indexOf(id), 1);
+         console.log('Запрос ' + id + ' выполнен' + '(' + this.loading.length + ')');
          if (this.loading.length == 0) {
             $rootScope.isLoading = false;
          }

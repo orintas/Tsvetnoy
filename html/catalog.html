@@ -6,7 +6,7 @@
         <div class="col-md-3 col-md-push-7 col-sm-6 col-sm-push-0 col-xs-12 col-xs-push-0 margin-top-vertical">
             <form role="form" class="form-inline" ng-submit="searchCtl()">
                 <p class="input-group">
-                    <input type="text" class="form-control" ng-model="search" ng-blur="searchCtl()" ng-disabled="isLoading">
+                    <input type="text" class="form-control" ng-model="search" ng-blur="searchCtl()" ng-disabled="isLoading" placeholder="Название или артикул">
                     <span class="input-group-btn"><button type="search" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
                 </p>
             </form>
@@ -75,7 +75,7 @@
             <div class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
                 <div class="col-md-1">{{good.productCode}}</div>
                 <div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
-                <div class="col-md-7 col-xs-6">{{good.name}}<br>40x50</div>
+                <div class="col-md-7 col-xs-6">{{good.name}}<br>{{ getProperty(good, "Размер") }}</div>
                 <div class="col-md-3 col-xs-3 text-right"><small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}</div>
             </div>
             <div class="row table-row" ng-click="$parent.preview = 0" ng-show="$parent.preview == good.productCode">
@@ -88,18 +88,8 @@
                         <dd>{{good.productCode}}</dd>
                         <dt>Название</dt>
                         <dd>{{good.name}}</dd>
-                        <dt>Размер</dt>
-                        <dd>40x50 см</dd>
-                        <dt>Производитель</dt>
-                        <dd>Menglei</dd>
-                        <dt>Тип</dt>
-                        <dd>На холсте</dd>
-                        <dt>Сложность</dt>
-                        <dd>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                        </dd>
+                        <dt ng-repeat-start="property in good.properties track by $index">{{ entities.entity[property].name }}</dt>
+                        <dd ng-repeat-end>{{ entities.entity[property].value }}</dd>
                     </dl>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

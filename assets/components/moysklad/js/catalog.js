@@ -86,4 +86,15 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
             }
          }
       };
+
+      $scope.getProperty = function (good, propertyName) {
+         var result = null;
+         var checkProperty = function (property) {
+            if ($scope.entities.entity[property] && $scope.entities.entity[property].name == propertyName) {
+               result = $scope.entities.entity[property].value;
+            }
+         }
+         good.properties.forEach(checkProperty);
+         return result;
+      };
    }]);
