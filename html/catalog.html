@@ -108,8 +108,8 @@
                 </div>
                 <div class="col-lg-2 col-md-8 col-sm-12 col-xs-12 text-right">
                     <span><strong>Цена без скидки </strong><br>{{((good.salePrice / 100) | currency:'') + 'р.'}}</span><br>
-                    <span><strong>Скидка ({{ discont }}%) </strong><br>{{((good.salePrice / 100) * (discont / 100) | currency:'') + 'р.'}}</span><br>
-                    <span><strong>Итого </strong><br>{{((good.salePrice / 100) * ((100 - discont) / 100) | currency:'') + 'р.'}}</span>
+                    <span ng-hide="discont == 0"><strong>Скидка ({{ discont }}%) </strong><br>{{((good.salePrice / 100) * (discont / 100) | currency:'') + 'р.'}}</span><br>
+                    <span ng-hide="discont == 0"><strong>Итого </strong><br>{{((good.salePrice / 100) * ((100 - discont) / 100) | currency:'') + 'р.'}}</span>
                 </div>
             </div>
         </div>
