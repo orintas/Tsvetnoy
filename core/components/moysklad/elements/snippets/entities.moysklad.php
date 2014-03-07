@@ -13,31 +13,11 @@ foreach ($entities->attributes() as $name => $value) {
 $i = 0;
 $resultEntities = array();
 foreach ($entities as $entity) {
-//    print_r($entity);
-    //foreach ($entity->attributes() as $attribute) {
-//        print_r($entity['entityMetadataUuid']);
-//        $resultEntities[(string)$entity->uuid] = array('value' => (string)$entity['name']);
-        switch((string)$entity['entityMetadataUuid']) {
-            case MoySkladConfig::SIZES_METADATA_UUID:
-                $resultEntities[(string)$entity->uuid] = array('value' => (string)$entity['name'], 'name' => 'Размер');
-                break;
-        }
-    //}
-    //print_r($entity);
-/*	if ((string)$good['parentUuid'] != MoySkladConfig::WARE_GROUP_MENGLEI_UUID) continue;
-	$resultGoods[$i] = array();
-	$resultGoods[$i]['name'] = (string)$good['name'];
-	$resultGoods[$i]['productCode'] = (string)$good['productCode'];
-	$codes[$i] = (string)$good['productCode'];
-	$resultGoods[$i]['salePrice'] = (double)$good['salePrice'];
-	$resultGoods[$i]['properties'] = array();
-	foreach ($good->attribute as $attribute) {
-	    //print_r($attribute);
-	    if (isset($attribute['entityValueUuid'])) {
-            $resultGoods[$i]['properties'][] = (string)$attribute['entityValueUuid'];
-        }
+    switch((string)$entity['entityMetadataUuid']) {
+        case MoySkladConfig::SIZES_METADATA_UUID:
+            $resultEntities[(string)$entity->uuid] = array('value' => (string)$entity['name'], 'name' => 'Размер');
+            break;
     }
-	$i++;*/
 }
 //array_multisort($codes, SORT_ASC, $resultGoods);
 $result['entity'] = $resultEntities;
@@ -602,3 +582,4 @@ This XML file does not appear to have any style information associated with it. 
 <description/>
 </customEntity>
 </collection>*/
+?>

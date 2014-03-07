@@ -72,7 +72,7 @@
     </div>
     <div infinite-scroll="loadGoods()" infinite-scroll-distance="2">
         <div ng-repeat="good in displayGoods | filter:searchText">
-            <div class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
+            <div id="{{ good.productCode }}" class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
                 <div class="col-md-1">{{good.productCode}}</div>
                 <div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
                 <div class="col-md-7 col-xs-6">{{good.name}}<br>{{ getProperty(good, "Размер") }}</div>

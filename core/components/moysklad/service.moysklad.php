@@ -36,6 +36,11 @@ class MoySkladService {
         return http_chunked_decode($result);
     }
 
+    private function getDate($timestamp)
+    {
+        return date("Ymd", $timestamp) . "010000";
+    }
+
     public function addOrder($order)
     {
         $result = $this->sendRequest("/exchange/rest/ms/xml/CustomerOrder", "PUT", $order->getXML());
@@ -61,6 +66,14 @@ class MoySkladService {
     public function getEntities()
     {
         return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/CustomEntity/list", "GET"));
+    }
+
+    public function getRetailDemand($dateTime = null)
+    {
+        if (!$dateTime) {
+            $dateTime = time() - (60 * 60 * 24);
+        }
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/RetailDemand/list?filter=created%3e" . $this->getDate($dateTime), "GET"));
     }
 
    private function loadEntities()

@@ -39,7 +39,7 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       });
       $('.calculatorTooltip').tooltip();
    }]).
-   controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'Loading', function($scope, Goods, Entities, Loading) {
+   controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'Loading', '$location', '$anchorScroll', function($scope, Goods, Entities, Loading, location, anchorScroll) {
       $scope.displayGoods = [];
       $scope.preview = 0;
       $scope.discontCalcVisible = false;
@@ -73,8 +73,9 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
             Loading.pushLoad('goods');
             Goods.get({}, function (response) {
                $scope.goods = response;
+               var goodsCountForDisplay = Math.min($scope.goods.good.length, 30);
                goodsIsLoaded = true;
-               addDisplayGoods($scope.displayGoods.length, Math.min($scope.goods.good.length, 30));
+               addDisplayGoods($scope.displayGoods.length, goodsCountForDisplay);
                Loading.popLoad('goods');
              }, function (response) {
                $scope.error = response;
