@@ -40,11 +40,6 @@ foreach ($demands as $demand) {
         );
     }
     $resultDemands[(string)$demand->uuid]["shipmentOut"] = $shipments;
-/*    switch((string)$entity['entityMetadataUuid']) {
-        case MoySkladConfig::SIZES_METADATA_UUID:
-            $resultEntities[(string)$entity->uuid] = array('value' => (string)$entity['name'], 'name' => 'Размер');
-            break;
-    }*/
 }
 $result['demand'] = $resultDemands;
 return json_encode($result);

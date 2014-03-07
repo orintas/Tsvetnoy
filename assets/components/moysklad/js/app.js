@@ -3,7 +3,7 @@
 /**
  * Created by Orintas on 13.02.14.
  */
-angular.module('app', ['catalogMdl', 'sendMailMdl']).
+angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
    constant('config', {
       phone: "+7 (920) 685 89 33",
       info_mail: "info",
