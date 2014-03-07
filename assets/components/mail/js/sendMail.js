@@ -4,7 +4,7 @@
  * Created by Orintas on 26.02.14.
  */
 angular.module('sendMailMdl', ['service']).
-   controller('contactFormCtrl', ['$scope', 'SendMail', 'Loading', function($scope, SendMail, Loading) {
+   controller('contactFormCtrl', ['$scope', 'SendMail', 'AsyncLoad', function($scope, SendMail, AsyncLoad) {
       $scope.mailForm = {
          isSent: false,
          error: null,
@@ -14,10 +14,10 @@ angular.module('sendMailMdl', ['service']).
          $scope.mailForm.isSent = true;
          $scope.mailForm.error = response.error;
          $scope.mailForm.response = response.message;
-         Loading.pop('sendMail');
+         AsyncLoad.pop('sendMail');
       }
       $scope.sendMail = function() {
-         Loading.push('sendMail');
+         AsyncLoad.push('sendMail');
          $scope.mailForm.error = null;
          $scope.mailForm.response = null;
          SendMail.save($scope.mailForm, mailSendHandler, function (response) {

@@ -9,9 +9,9 @@ angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
       info_mail: "info",
       domain: "protsvetnoy.com"
    }).
-   service('Loading', ['$rootScope', function($rootScope) {
+   service('AsyncLoad', ['$rootScope', function($rootScope) {
       this.loading = [];
-      this.pushLoad = function(id) {
+      this.pushLoad = function (id) {
          console.log('Запрос ' + id + '(' + this.loading.length + ')');
          this.loading.push(id);
          $rootScope.isLoading = true;
@@ -22,6 +22,17 @@ angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
          if (this.loading.length == 0) {
             $rootScope.isLoading = false;
          }
+      };
+      this.load = function(name, scope, service) {
+         this.pushLoad(name);
+         var self = this;
+         service.get({}, function (response) {
+            scope[name] = response;
+            self.popLoad(name);
+         }, function (response) {
+            scope.error = response;
+            self.popLoad(name);
+         });
       };
    }]).
    controller('contactsCtl', ['$scope', '$location', 'config', function(scope, location, config) {
