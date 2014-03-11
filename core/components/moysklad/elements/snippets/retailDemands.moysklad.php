@@ -11,14 +11,18 @@ foreach ($demands->attributes() as $name => $value) {
 	$result[$name] = (string)$value;
 }
 $i = 0;
+$demandDates = array();
 $resultDemands = array();
 foreach ($demands as $demand) {
-    $resultDemands[(string)$demand->uuid] = array(
+    $uuid = (string)$demand->uuid;
+    $resultDemands[$i] = array(
         "retailStoreUuid"   => (string)$demand["retailStoreUuid"],
         "created"           => (string)$demand["created"],
         "sum"               => (string)$demand->sum["sum"],
         "shipmentOut"       => array()
     );
+    $dateTime = new DateTime((string)$demand["created"]);
+    $demandDates[$i] = $dateTime->getTimestamp();
     $shipments = array();
     if (is_array($demand->shipmentOut)) {
         foreach($demand->shipmentOut as $shipment) {
@@ -39,8 +43,10 @@ foreach ($demands as $demand) {
             "price"     => (string)$demand->shipmentOut->price["sum"]
         );
     }
-    $resultDemands[(string)$demand->uuid]["shipmentOut"] = $shipments;
+    $resultDemands[$i]["shipmentOut"] = $shipments;
+    $i++;
 }
+array_multisort($demandDates, SORT_ASC, SORT_NUMERIC, $resultDemands);
 $result['demand'] = $resultDemands;
 return json_encode($result);
 /*

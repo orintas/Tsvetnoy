@@ -71,7 +71,7 @@ class MoySkladService {
     public function getRetailDemand($dateTime = null)
     {
         if (!$dateTime) {
-            $dateTime = time() - (60 * 60 * 24);
+            $dateTime = time();// - (60 * 60 * 24);
         }
         return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/RetailDemand/list?filter=created%3e" . $this->getDate($dateTime), "GET"));
     }

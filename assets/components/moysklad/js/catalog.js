@@ -49,24 +49,23 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
 
       var addDisplayGoods = function(beginIndex, count) {
          for (var i = beginIndex; i < beginIndex + count; i++) {
-            $scope.displayGoods.push($scope.goods.good[i]);
+            $scope.displayGoods.push($scope.goods.good[$scope.goodKeys[i]]);
          }
       };
 
       $scope.searchCtl = function() {
-         AsyncLoad.pushLoad('goods');
-         while ($scope.displayGoods.length < $scope.goods.good.length) {
-            addDisplayGoods($scope.displayGoods.length, Math.min($scope.goods.good.length - $scope.displayGoods.length, 10));
+         while ($scope.displayGoods.length < $scope.goodKeys.length) {
+            addDisplayGoods($scope.displayGoods.length, Math.min($scope.goodKeys.length - $scope.displayGoods.length, 10));
          }
          $scope.searchText = $scope.search;
-         AsyncLoad.popLoad('goods');
       };
       $scope.loadGoods = function () {
          if (!goodsIsLoaded) {
             AsyncLoad.pushLoad('goods');
             Goods.get({}, function (response) {
                $scope.goods = response;
-               var goodsCountForDisplay = Math.min($scope.goods.good.length, 30);
+               $scope.goodKeys = Object.keys($scope.goods.good);
+               var goodsCountForDisplay = Math.min($scope.goodKeys.length, 30);
                goodsIsLoaded = true;
                addDisplayGoods($scope.displayGoods.length, goodsCountForDisplay);
                AsyncLoad.popLoad('goods');
@@ -75,8 +74,8 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
                AsyncLoad.popLoad('goods');
             });
          } else {
-            if ($scope.displayGoods.length < $scope.goods.good.length) {
-               addDisplayGoods($scope.displayGoods.length, Math.min($scope.goods.good.length - $scope.displayGoods.length, 10));
+            if ($scope.displayGoods.length < $scope.goodKeys.length) {
+               addDisplayGoods($scope.displayGoods.length, Math.min($scope.goodKeys.length - $scope.displayGoods.length, 10));
             }
          }
       };
@@ -84,7 +83,7 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       $scope.getProperty = function (good, propertyName) {
          var result = null;
          var checkProperty = function (property) {
-            if ($scope.entities.entity[property] && $scope.entities.entity[property].name == propertyName) {
+            if ($scope.entities.entity && $scope.entities.entity[property] && $scope.entities.entity[property].name == propertyName) {
                result = $scope.entities.entity[property].value;
             }
          }

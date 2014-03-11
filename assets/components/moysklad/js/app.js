@@ -38,9 +38,4 @@ angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
    controller('contactsCtl', ['$scope', '$location', 'config', function(scope, location, config) {
       scope.email = config.info_mail + "@" + config.domain;
       scope.phone = config.phone;
-
-      scope.getAnchor = function () {
-         console.log('Anchor is ' + location.path());
-         return location.hash();
-      }
    }]);

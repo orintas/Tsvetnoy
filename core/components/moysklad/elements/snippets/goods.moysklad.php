@@ -10,24 +10,25 @@ $result = array();
 foreach ($goods->attributes() as $name => $value) {
 	$result[$name] = (string)$value;
 }
-$i = 0;
+//$i = 0;
 $codes = array();
 $resultGoods = array();
 foreach ($goods as $good) {
 	if ((string)$good['parentUuid'] != MoySkladConfig::WARE_GROUP_MENGLEI_UUID) continue;
-	$resultGoods[$i] = array();
-	$resultGoods[$i]['name'] = (string)$good['name'];
-	$resultGoods[$i]['productCode'] = (string)$good['productCode'];
-	$codes[$i] = (string)$good['productCode'];
-	$resultGoods[$i]['salePrice'] = (double)$good['salePrice'];
-	$resultGoods[$i]['properties'] = array();
+	$uuid = (string)$good->uuid;
+	$resultGoods[$uuid] = array();
+	$resultGoods[$uuid]['name'] = (string)$good['name'];
+	$resultGoods[$uuid]['productCode'] = (string)$good['productCode'];
+	$codes[$uuid] = (string)$good['productCode'];
+	$resultGoods[$uuid]['salePrice'] = (double)$good['salePrice'];
+	$resultGoods[$uuid]['properties'] = array();
 	foreach ($good->attribute as $attribute) {
 	    //print_r($attribute);
 	    if (isset($attribute['entityValueUuid'])) {
-            $resultGoods[$i]['properties'][] = (string)$attribute['entityValueUuid'];
+            $resultGoods[$uuid]['properties'][] = (string)$attribute['entityValueUuid'];
         }
     }
-	$i++;
+//	$i++;
 }
 array_multisort($codes, SORT_ASC, $resultGoods);
 $result['good'] = $resultGoods;

@@ -30,6 +30,9 @@
 .table-row {
     padding: 3px;
     border-top: 1px solid lightgray;
+}
+
+.cursor {
     cursor: pointer;
 }
 
