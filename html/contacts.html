@@ -75,7 +75,7 @@
     </div>
     <hr>
     <div class="row" ng-controller="shopsContactsCtrl">
-        <div ng-repeat="shop in shops | orderObjectBy:'sort'" class="col-md-4 col-sm-11 col-xs-11">
+        <div ng-repeat="shop in shops track by $id($index) | orderObjectBy:'sort'" class="col-md-4 col-sm-11 col-xs-11">
             <h4>{{ shop.mall.name }}</h4>
             <address>
                 {{ shop.mall.address }}<br>
