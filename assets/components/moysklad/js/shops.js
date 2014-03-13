@@ -4,8 +4,9 @@
  * Created by Orintas on 08.03.14.
  */
 angular.module('shopsMdl', ['service']).
-
-   controller('shopsCtrl', ['$scope', '$timeout', 'AsyncLoad', 'RetailDemands', 'Goods', function($scope, $timeout, AsyncLoad, RetailDemands, Goods) {
+   controller('shopsCtrl',
+      ['$scope', '$timeout', 'AsyncLoad', 'RetailDemands', 'Goods', 'Shops',
+         function($scope, $timeout, AsyncLoad, RetailDemands, Goods, Shops) {
       $scope.displayDemands = [];
       $scope.lastCheckDemandTime = new Date();
       var loadDemands = function() {
@@ -15,5 +16,10 @@ angular.module('shopsMdl', ['service']).
       }
       loadDemands();
       AsyncLoad.load('goods', $scope, Goods);
+      AsyncLoad.load('shops', $scope, Shops);
+   }]).
+   controller('shopsContactsCtrl', ['$scope', 'AsyncLoad', 'Shops', function($scope, AsyncLoad, Shops) {
+      AsyncLoad.load('shops', $scope, Shops);
    }]);
+
 

@@ -27,4 +27,7 @@ angular.module('service', ['ngResource']).
    }]).
    factory('RetailDemands', ['resourceFactory', function (resourceFactory) {
       return resourceFactory.create('retailDemands');
+   }]).
+   factory('Shops', ['resourceFactory', function (resourceFactory) {
+      return resourceFactory.create('shops');
    }]);

@@ -44,17 +44,19 @@
         <div class="col-md-1">{{ demand.created | date:'HH:mm'}}</div>
         <div class="col-md-9">
             <div ng-repeat="shipment in demand.shipmentOut" class="row">
-                <div class="col-md-1 col-xs-6"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + goods.good[shipment.goodUuid].productCode + '.jpg' | lowercase}}" alt="{{ goods.good[shipment.goodUuid].productCode }}" width="40px" height="40px" class="icon"></div>
-                <div class="col-md-1 col-xs-6 text-right">{{goods.good[shipment.goodUuid].productCode}}</div>
-                <div class="col-md-1 col-xs-6 text-right">{{shipment.quantity | number:0}}шт.</div>
-                <div class="col-md-2 col-xs-6 text-right">{{((shipment.basePrice / 100) | currency:'') + 'р.'}}</div>
-                <div class="col-md-1 col-xs-6 text-right text-danger" ng-show="shipment.discount > 0" >-{{shipment.discount | number:0}}%</div>
-                <div class="col-md-2 col-xs-6 text-right" ng-show="shipment.discount > 0" >{{((shipment.price / 100) | currency:'') + 'р.'}}</div>
+                <div class="col-md-1 col-xs-2"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + goods.good[shipment.goodUuid].productCode + '.jpg' | lowercase}}" alt="{{ goods.good[shipment.goodUuid].productCode }}" width="40px" height="40px" class="icon"></div>
+                <div class="col-md-1 col-xs-3 text-right">{{goods.good[shipment.goodUuid].productCode}}</div>
+                <div class="col-md-1 col-xs-3 text-right">{{shipment.quantity | number:0}}шт.</div>
+                <!--div class="col-md-1 col-xs-3 text-right" ng-show="shipment.discount > 0">&nbsp;</div-->
+                <div class="col-md-2 col-xs-3 text-right">{{((shipment.basePrice / 100) | currency:'') + 'р.'}}</div>
+                <div class="col-md-1 col-xs-3 text-right text-danger" ng-show="shipment.discount > 0" >-{{shipment.discount | number:0}}%</div>
+                <div class="col-md-2 col-xs-3 text-right" ng-show="shipment.discount > 0" >{{((shipment.price / 100) | currency:'') + 'р.'}}</div>
                 <!--div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
                 <div class="col-md-7 col-xs-6">{{good.name}}<br>{{ getProperty(good, "Размер") }}</div>
                 <div class="col-md-3 col-xs-3 text-right"><small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}</div-->
             </div>
         </div>
+        <div class="col-md-2">{{shops[demand.sourceStoreUuid].mall.name}}</div>
         <div class="col-md-2 text-right"><strong>{{((demand.sum / 100) | currency:'') + 'р.'}}</strong></div>
         <!--div id="{{ good.productCode }}" class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
             <div class="col-md-1">{{good.productCode}}</div>

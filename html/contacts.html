@@ -74,35 +74,15 @@
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-md-4 col-sm-11 col-xs-11">
-            <h4>ТЦ Вегас </h4>
+    <div class="row" ng-controller="shopsContactsCtrl">
+        <div ng-repeat="shop in shops | orderObjectBy:'sort'" class="col-md-4 col-sm-11 col-xs-11">
+            <h4>{{ shop.mall.name }}</h4>
             <address>
-                город Москва, 24 км МКАД Х Каширское ш.<br>
-                <a href="http://kashirskoe.vegas-city.ru/">kashirskoe.vegas-city.ru</a>
+                {{ shop.mall.address }}<br>
+                <a href="http://{{ shop.mall.site }}">{{ shop.mall.site }}</a>
             </address>
             <p>
                 <button class="btn btn-primary" type="button"> подробнее </button>
-            </p>
-        </div>
-        <div class="col-md-4 col-sm-11 col-xs-11">
-            <h4>ТЦ Рубин </h4>
-            <address>
-                город Тверь, пр-т Калинина, 15 стр. 1<br>
-                <a href="http://www.rubin69.ru/">www.rubin69.ru</a>
-            </address>
-            <p>
-                <button class="btn btn-warning" type="button"> подробнее </button>
-            </p>
-        </div>
-        <div class="col-md-4 col-sm-11 col-xs-11">
-            <h4>ТЦ Корстон </h4>
-            <address>
-                город Серпухов, Борисовское шоссе, 1<br>
-                <a href="http://www.korston.ru/serpukhov/shares-shops/">www.korston.ru/serpukhov/shares-shops</a>
-            </address>
-            <p>
-                <button class="btn btn-success" type="button"> подробнее </button>
             </p>
         </div>
     </div>
@@ -111,7 +91,7 @@
         <div class="col-md-4">
             <a href="http://art-elite.ru"><img class="art-elite" src="img/logo_art_elite.png" alt="art-elite.ru"/></a>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h4><a href="http://art-elite.ru">Интернет магазин - "Раскраски по номерам"</a></h4>
             <dl class="dl-horizontal">
                 <dt>Адрес: </dt>
@@ -119,6 +99,10 @@
                 <dt>Телефон: </dt>
                 <dd>+7 (495) 641-67-49</dd>
             </dl>
+        </div>
+        <div class="col-md-2">
+            <a href="http://www.youtube.com/user/ArtEliteRu"><img src="img/youtube.jpeg" alt="youtube" width="50px" height="50px"/></a>
+            <a   href="http://vk.com/art_elite"><img src="img/vk2.jpeg" alt="vkontakte" width="50px" height="50px"/></a>
         </div>
     </div>
     <hr>

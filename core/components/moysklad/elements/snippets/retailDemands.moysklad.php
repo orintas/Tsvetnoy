@@ -10,23 +10,23 @@ $result = array();
 foreach ($demands->attributes() as $name => $value) {
 	$result[$name] = (string)$value;
 }
-$i = 0;
 $demandDates = array();
 $resultDemands = array();
 foreach ($demands as $demand) {
     $uuid = (string)$demand->uuid;
-    $resultDemands[$i] = array(
-        "retailStoreUuid"   => (string)$demand["retailStoreUuid"],
+    $resultDemands[$uuid] = array(
+        "sourceStoreUuid"   => (string)$demand["sourceStoreUuid"],
         "created"           => (string)$demand["created"],
         "sum"               => (string)$demand->sum["sum"],
         "shipmentOut"       => array()
     );
     $dateTime = new DateTime((string)$demand["created"]);
-    $demandDates[$i] = $dateTime->getTimestamp();
+    $demandDates[$uuid] = $dateTime->getTimestamp();
     $shipments = array();
-    if (is_array($demand->shipmentOut)) {
+//    print_r($demand->shipmentOut[1  ]);
+ //   if (is_array($demand->shipmentOut)) {
         foreach($demand->shipmentOut as $shipment) {
-            $shipments[$shipment->uuid] = array(
+            $shipments[(string)$shipment->uuid] = array(
                 "discount"  => (string)$shipment["discount"],
                 "quantity"  => (string)$shipment["quantity"],
                 "goodUuid"  => (string)$shipment["goodUuid"],
@@ -34,19 +34,18 @@ foreach ($demands as $demand) {
                 "price"     => (string)$shipment->price["sum"]
             );
         }
-    } else {
+/*    } else {
         $shipments[(string)$demand->shipmentOut->uuid] = array(
             "discount"  => (string)$demand->shipmentOut["discount"],
-            "quantity"  => (string)$demand->shipmentOut["quantity"],
+            "quantity"  => (string)$demand->shipmentOut["quantity"] . '00',
             "goodUuid"  => (string)$demand->shipmentOut["goodUuid"],
             "basePrice" => (string)$demand->shipmentOut->basePrice["sum"],
             "price"     => (string)$demand->shipmentOut->price["sum"]
         );
-    }
-    $resultDemands[$i]["shipmentOut"] = $shipments;
-    $i++;
+    }*/
+    $resultDemands[$uuid]["shipmentOut"] = $shipments;
 }
-array_multisort($demandDates, SORT_ASC, SORT_NUMERIC, $resultDemands);
+array_multisort($demandDates, SORT_DESC, SORT_NUMERIC, $resultDemands);
 $result['demand'] = $resultDemands;
 return json_encode($result);
 /*
