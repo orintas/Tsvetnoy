@@ -17,6 +17,15 @@ angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
          return filtered;
       };
    }).
+   filter("toArray", function(){
+      return function(obj) {
+         var result = [];
+         angular.forEach(obj, function(val, key) {
+            result.push(val);
+         });
+         return result;
+      };
+   }).
    constant('config', {
       phone: "+7 (920) 685 89 33",
       info_mail: "info",
