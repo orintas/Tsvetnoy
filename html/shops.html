@@ -3,8 +3,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <ul class="nav nav-tabs">
-                <li><h4>Магазины:&nbsp;&nbsp;&nbsp;</h4></li>
+            <ul class="nav nav-tabs nav-justified">
+                <li><h2>Магазины:&nbsp;&nbsp;&nbsp;</h2></li>
                 <li ng-repeat="(uuid, shop) in shops" ng-class="{active: currentShop.id == shop.id}"><a href="#" ng-click="$parent.currentShop = shop; $parent.currentShopUUID = uuid">ТЦ {{shop.mall.name}}</a></li>
             </ul>
         </div>
