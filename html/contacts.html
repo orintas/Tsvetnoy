@@ -75,14 +75,14 @@
     </div>
     <hr>
     <div class="row" ng-controller="shopsContactsCtrl">
-        <div ng-repeat="shop in shops track by $id($index) | orderObjectBy:'sort'" class="col-md-4 col-sm-11 col-xs-11">
+        <div ng-repeat="(uuid, shop) in shops track by $id($index) | orderObjectBy:'sort'" class="col-md-4 col-sm-11 col-xs-11">
             <h4>{{ shop.mall.name }}</h4>
             <address>
                 {{ shop.mall.address }}<br>
                 <a href="http://{{ shop.mall.site }}">{{ shop.mall.site }}</a>
             </address>
             <p>
-                <button class="btn btn-primary" type="button"> подробнее </button>
+                <a href="/shops.html#?shopUUID={{uuid}}" class="btn btn-primary" type="button">подробнее</span></a>
             </p>
         </div>
     </div>

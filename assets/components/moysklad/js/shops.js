@@ -5,11 +5,15 @@
  */
 angular.module('shopsMdl', ['service']).
    controller('shopsCtrl',
-      ['$scope', '$timeout', 'AsyncLoad', 'RetailDemands', 'Goods', 'Shops',
-         function($scope, $timeout, AsyncLoad, RetailDemands, Goods, Shops) {
+      ['$scope', '$timeout', 'AsyncLoad', 'RetailDemands', 'Goods', 'Shops', '$location',
+         function($scope, $timeout, AsyncLoad, RetailDemands, Goods, Shops, $location) {
       $scope.displayDemands = [];
+      var params = $location.search();
+      if (params.shopUUID) {
+         console.log("Set current UUID");
+         $scope.currentShopUUID = params.shopUUID;
+      }
       $scope.lastCheckDemandTime = new Date();
-            
       $scope.matchShop = function () {
          console.log("Match function creator");
          return function (shop) {
@@ -24,8 +28,20 @@ angular.module('shopsMdl', ['service']).
          $timeout(loadDemands, 1000 * 60);
       };
       loadDemands();
+      AsyncLoad.pushLoad("shops");
+      Shops.get({}, function (response) {
+         $scope.shops = response;
+         if (!$scope.currentShopUUID) {
+            console.log("Set default UUID");
+            $scope.currentShopUUID = "e4405e53-a9a0-11e2-dd46-001b21d91495";
+         }
+         $scope.currentShop = $scope.shops[$scope.currentShopUUID];
+         AsyncLoad.popLoad("shops");
+      }, function (response) {
+         $scope.error = response;
+         AsyncLoad.popLoad("shops");
+      });
       AsyncLoad.load('goods', $scope, Goods);
-      AsyncLoad.load('shops', $scope, Shops);
    }])
    .filter('demandFilter', function() {
       return function (demands, selectedShopUUID) {
