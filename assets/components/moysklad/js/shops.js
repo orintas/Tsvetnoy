@@ -10,16 +10,16 @@ angular.module('shopsMdl', ['service']).
       $scope.displayDemands = [];
       var params = $location.search();
       if (params.shopUUID) {
-         console.log("Set current UUID");
          $scope.currentShopUUID = params.shopUUID;
       }
       $scope.lastCheckDemandTime = new Date();
       $scope.matchShop = function () {
-         console.log("Match function creator");
-         return function (shop) {
-            console.log("Match function");
-            return shop.id == $scope.currentShop.id;
-         }
+         return function (shop) { return shop.id == $scope.currentShop.id; }
+      };
+      $scope.sortDemand = function (demand) {
+         console.log("Sort on demand");
+         console.log(demand);
+         return 1;
       };
 
       var loadDemands = function() {
@@ -32,7 +32,6 @@ angular.module('shopsMdl', ['service']).
       Shops.get({}, function (response) {
          $scope.shops = response;
          if (!$scope.currentShopUUID) {
-            console.log("Set default UUID");
             $scope.currentShopUUID = "e4405e53-a9a0-11e2-dd46-001b21d91495";
          }
          $scope.currentShop = $scope.shops[$scope.currentShopUUID];
@@ -53,7 +52,16 @@ angular.module('shopsMdl', ['service']).
          }
          return filteredDemands;
       };
-   }).
+   })
+   .filter("toArray", function(){
+      return function(obj) {
+         var result = [];
+         angular.forEach(obj, function(val, key) {
+            result.push(val);
+         });
+         return result;
+      };
+   });
    controller('shopsContactsCtrl', ['$scope', 'AsyncLoad', 'Shops', function($scope, AsyncLoad, Shops) {
       AsyncLoad.load('shops', $scope, Shops);
    }]);

@@ -1,12 +1,14 @@
 <div class="container angular" ng-controller="shopsCtrl">
+    <div class="row">&nbsp;
+    </div>
     <div class="row">
-        <div class="page-header">
-            <h2>Магазины</h2>
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li><h4>Магазины:&nbsp;&nbsp;&nbsp;</h4></li>
+                <li ng-repeat="(uuid, shop) in shops" ng-class="{active: currentShop.id == shop.id}"><a href="#" ng-click="$parent.currentShop = shop; $parent.currentShopUUID = uuid">ТЦ {{shop.mall.name}}</a></li>
+            </ul>
         </div>
     </div>
-    <ul class="nav nav-tabs">
-        <li ng-repeat="(uuid, shop) in shops" ng-class="{active: currentShop.id == shop.id}"><a href="#" ng-click="$parent.currentShop = shop; $parent.currentShopUUID = uuid">ТЦ {{shop.mall.name}}</a></li>
-    </ul>
     <div class="row" ng-show="currentShop">
         <div class="col-md-12">
             <h4>Торговый центр "{{currentShop.mall.name}}" <small>{{currentShop.mall.city}}</small></h4>
@@ -43,7 +45,7 @@
             <h4>Продажи на {{ lastCheckDemandTime | date:'dd.MM.yyyy' }}<small> {{ lastCheckDemandTime | date:'HH:mm' }}</small></h4>
         </div>
     </div>
-    <div ng-show="currentShop" ng-repeat="demand in retailDemands.demand | demandFilter:currentShopUUID | orderBy:'created'" class="row table-row">
+    <div ng-show="currentShop" ng-repeat="demand in retailDemands.demand | demandFilter:currentShopUUID | toArray | orderBy:'created'" class="row table-row">
         <div class="col-md-1">{{ demand.created | date:'HH:mm'}}</div>
         <div class="col-md-9">
             <div ng-repeat="shipment in demand.shipmentOut" class="row">
