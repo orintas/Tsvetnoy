@@ -9,6 +9,7 @@ angular.module('shopsMdl', ['service']).
          function($scope, $timeout, AsyncLoad, RetailDemands, Goods, Shops) {
       $scope.displayDemands = [];
       $scope.lastCheckDemandTime = new Date();
+      console.log("Test");
       var loadDemands = function() {
          $scope.lastCheckDemandTime = new Date();
          AsyncLoad.load('retailDemands', $scope, RetailDemands)
