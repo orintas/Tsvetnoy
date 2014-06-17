@@ -4,43 +4,46 @@
             <h2>Магазины</h2>
         </div>
     </div>
-    <div class="row">
+    <ul class="nav nav-tabs">
+        <li ng-repeat="(uuid, shop) in shops" ng-class="{active: currentShop.id == shop.id}"><a href="#" ng-click="$parent.currentShop = shop; $parent.currentUUID = uuid">ТЦ {{shop.mall.name}}</a></li>
+    </ul>
+    <div class="row" ng-show="currentShop">
         <div class="col-md-12">
-            <h4>Торговый центр "Вегас" <small>Москва</small></h4>
+            <h4>Торговый центр "{{currentShop.mall.name}}" <small>{{currentShop.mall.city}}</small></h4>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="currentShop">
         <div class="col-md-4">
-            <img src="../img/vegas.jpg" class="thumbnail" width="270px">
+            <img src="../img/{{currentShop.id}}.jpg" class="thumbnail" width="270px">
         </div>
         <div class="col-md-8">
             <dl class="dl-horizontal">
                 <dt></dt>
-                <dd><strong>Торговый центр "Вегас"</strong></dd>
+                <dd><strong>Торговый центр "{{currentShop.mall.name}}"</strong></dd>
                 <dt>Адрес:</dt>
-                <dd>Московская обл., пос. Совхоз им. Ленина, 24 км МКАД</dd>
+                <dd>{{currentShop.mall.address}}</dd>
                 <dt>Сайт:</dt>
-                <dd><a href="http://kashirskoe.vegas-city.ru/">http://kashirskoe.vegas-city.ru/</a></dd>
+                <dd><a href="{{currentShop.mall.site}}">{{currentShop.mall.site}}</a></dd>
                 <dt>Общая площадь:</dt>
-                <dd>396 000 кв.м</dd>
+                <dd>{{currentShop.mall.area}} кв.м</dd>
                 <dt>Парковка:</dt>
-                <dd>Двухуровневый паркинг на 7500 машиномест</dd>
+                <dd>{{currentShop.mall.parking}} машиномест</dd>
                 <dd><br><strong>Торговая точка "Цветной"</strong></dd>
                 <dt>Площадь:</dt>
-                <dd>5 кв.м</dd>
+                <dd>{{currentShop.shop.area}} кв.м</dd>
                 <dt>Дата открытия:</dt>
-                <dd>15 мая 2013</dd>
+                <dd>{{currentShop.shop.openDate}}</dd>
                 <dt>Местоположение:</dt>
-                <dd>1 этаж, галлерея Fashion</dd>
+                <dd>{{currentShop.shop.location}}</dd>
             </dl>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="currentShop">
         <div class="col-md-12">
             <h4>Продажи на {{ lastCheckDemandTime | date:'dd.MM.yyyy' }}<small> {{ lastCheckDemandTime | date:'HH:mm' }}</small></h4>
         </div>
     </div>
-    <div ng-repeat="demand in retailDemands.demand | orderBy:'created'" class="row table-row">
+    <div ng-show="currentShop" ng-repeat="demand in retailDemands.demand | demandFilter:currentUUID | orderBy:'created'" class="row table-row">
         <div class="col-md-1">{{ demand.created | date:'HH:mm'}}</div>
         <div class="col-md-9">
             <div ng-repeat="shipment in demand.shipmentOut" class="row">

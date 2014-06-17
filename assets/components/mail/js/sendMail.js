@@ -14,10 +14,10 @@ angular.module('sendMailMdl', ['service']).
          $scope.mailForm.isSent = true;
          $scope.mailForm.error = response.error;
          $scope.mailForm.response = response.message;
-         AsyncLoad.pop('sendMail');
+         AsyncLoad.popLoad('sendMail');
       }
       $scope.sendMail = function() {
-         AsyncLoad.push('sendMail');
+         AsyncLoad.pushLoad('sendMail');
          $scope.mailForm.error = null;
          $scope.mailForm.response = null;
          SendMail.save($scope.mailForm, mailSendHandler, function (response) {
