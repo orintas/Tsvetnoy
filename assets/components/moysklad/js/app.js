@@ -3,7 +3,7 @@
 /**
  * Created by Orintas on 13.02.14.
  */
-angular.module('app', ['catalogMdl', 'sendMailMdl', 'shopsMdl']).
+angular.module('app', ['mainMdl', 'catalogMdl', 'sendMailMdl', 'shopsMdl']).
    filter('orderObjectBy', function() {
       return function(items, field, reverse) {
          var filtered = [];

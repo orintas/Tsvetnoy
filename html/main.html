@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="mainCtrl">
     <div class="jumbotron angular" xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <div class="col-md-6 hidden-xs">
@@ -10,44 +10,51 @@
                     Универсальная франшиза для новичков и опытных предпринимателей.
                     С нами Вы будете продавать только то, что действительно продается. Продается хорошо, стабильно и выгодно.
                 </p>
+                <div class="text-center">
+                <a id="description" class="btn btn-danger" ng-click="toogleDescription()" type="button">
+                    <span class="glyphicon glyphicon-arrow-down" ng-class="{'glyphicon-arrow-down': !isShowDescription, 'glyphicon-arrow-up': isShowDescription }"></span> читать дальше <span class="glyphicon glyphicon-arrow-down" ng-class="{'glyphicon-arrow-down': !isShowDescription, 'glyphicon-arrow-up': isShowDescription }"></span>
+                </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 col-sm-12 col-xs-12">
-            <h2>Открытость </h2>
-            <p>
-                Прежде чем начать бизнес с нами Вы сможете не только понаблюдать, но и «поэкспериментировать» с нашим личным уже работающим бизнесом в режиме on-line. И в дальнейшем каждый шаг нашего сотрудничества будет оставаться абсолютно прозрачным для Вас.
-            </p>
-            <p class="visible-sm visible-xs">
-                <button class="btn btn-warning" type="button"> подробнее <span class="glyphicon glyphicon-thumbs-up"> </span></button>
-            </p>
-        </div>
-        <div class="col-md-4 col-sm-12 col-xs-12">
-            <h2>Гибкость</h2>
-            <p>
-                Вы сможете сами выбрать размер вложений: от 20 000 до 1 000 000 рублей и форму сотрудничества: магазин «Цветной», просто Ваш магазин с нашим товаром, или наш товар в дополнение к Вашему основному ассортименту. Хотите - делайте все сами с нуля до результата, а хотите – купите готовый работающий магазин с гарантией.
-            </p>
-            <p class="visible-sm visible-xs">
-                <button class="btn btn-success" type="button"> подробнее <span class="glyphicon glyphicon-cog"></span></button>
-            </p>
-        </div>
-        <div class="col-md-4 col-sm-12 col-xs-12">
-            <h2>Актуальность</h2>
-            <p>Мы будем предлагать Вам только «оттестированные» товары по критериям стабильной востребованности у покупателей и высокой маржинальности (доходности). И заранее (как правило, за год) предупреждать Вас о необходимости смены товарного</p>
-            <!--p>Совокупность полной открытости и гибкой системы сотрудничества, позволяет говорить нам об уникальности.</p-->
-            <p  class="visible-sm visible-xs"><a href="/unique.html" class="btn btn-primary" type="button">подробнее <span class="glyphicon glyphicon-star-empty"></span></a></p>
+    <div class="row animate-show"  ng-show="isShowDescription">
+        <div class="col-md-12">
+            <!--div class="panel panel-default"-->
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-12 media">
+                            <button type="button" class="close media-object pull-right" aria-hidden="true" ng-click="isShowDescription = false">&times;</button>
+                            <p class="media-heading">
+                            <h4>Розничная торговля считается самым оптимальным бизнесом относительно вложений денег и труда к величине и скорости получения доходов.</h4>
+                            </p>
+                        </div>
+                    </div>
+                    <p>Наиболее прибыльным и быстрым по окупаемости является открытие магазинов в Торговых центрах. Это связано с их высокой посещаемостью людьми, нацеленными на покупки. Но продавать в Торговом центре «что попало» не получится. Люди приходят туда за «брендами».  Вам вряд ли сразу удастся стать представителем крупного «раскрученного» бренда, для этого необходимы репутация и большие инвестиции от 10 млн. рублей. Скорее всего, Вы купите или уже купили одну из многочисленных франшиз, представленных на российском рынке. Не будим даже пытаться их перечислять – придите в любой Торговый центр и посмотрите. Но как выбрать франшизу, которая подойдет именно Вам. На сайте продавцов практически любой франшизы Вам предложат продавать не товар как таковой, а некую легенду, образ жизни, эмоции. Продавать не  котелки и кружки, а «дух путешествий», не юбки и блузки, а  «стиль для стильных людей», не игрушки, а «товары хорошего настроения», не футболки с забавными принтами, а «креатив для креативного класса». И это действительно важно, но важно не для Вас, а для покупателей и то далеко не всегда.</p>
+                    <p>
+                        <strong>Вас же будут заботить совсем другие вещи:</strong>
+                        <ul>
+                            <li>как получить хорошую аренду в Торговом центре</li>
+                            <li>как не вылететь из него через полгода, когда Ваш бизнес только наберет обороты</li>
+                            <li>что делать, если Ваши кружки и юбки перестали покупать (это обязательно рано или поздно случится), а мантры про «дух путешествий» и «стильный стиль» больше не действуют ни на покупателей, ни, даже, на Вас самих.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <strong>Позвольте предложить Вам бизнес, который дает исчерпывающие ответы на эти и сотни других вопросов.</strong>
+                        Бизнес, созданный не ради «удовлетворения потребностей» покупателей, не ради сохранения гармонии во Вселенной, а исключительно для того, чтобы Вы  каждый месяц год за годом гарантировано зарабатывали  на нем хорошие деньги без лишней «головной боли».
+                    </p>
+                    <p>
+                        <strong>Наше предложение подкреплено</strong>
+                        пятилетним успешным (и не только успешным – на ошибках учатся) опытом работы в рознице с различными группами товаров, 30-ю открытыми магазинами в десятках Торговых центрах Москвы, Московской области и регионах, стабильным многомиллионным доходом.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="close media-object pull-right" aria-hidden="true" ng-click="isShowDescription = false">&times;</button>
+                        </div>
+                    </div>
+                </div>
+            <!--/div-->
         </div>
     </div>
-    <div class="row hidden-sm hidden-xs">
-        <div class="col-md-4 col-md-offset-0 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
-            <button class="btn btn-warning" type="button"> подробнее <span class="glyphicon glyphicon-thumbs-up"> </span></button>
-        </div>
-        <div class="col-md-4 col-md-offset-0 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
-            <button class="btn btn-success" type="button"> подробнее <span class="glyphicon glyphicon-cog"></span></button>
-        </div>
-        <div class="col-md-4 col-md-offset-0 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
-            <p><a href="/unique.html" class="btn btn-primary" type="button">подробнее <span class="glyphicon glyphicon-star-empty"></span></a></p>
-        </div>
-    </div>
+    [[$threeWhales]]
 </div>

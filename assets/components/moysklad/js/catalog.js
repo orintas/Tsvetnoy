@@ -82,6 +82,9 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
 
       $scope.getProperty = function (good, propertyName) {
          var result = null;
+         if (!good.properties || !$scope.entities) {
+            return result;
+         }
          var checkProperty = function (property) {
             if ($scope.entities.entity && $scope.entities.entity[property] && $scope.entities.entity[property].name == propertyName) {
                result = $scope.entities.entity[property].value;

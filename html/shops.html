@@ -61,7 +61,6 @@
                 <div class="col-md-3 col-xs-3 text-right"><small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}</div-->
             </div>
         </div>
-        <div class="col-md-2">{{shops[demand.sourceStoreUuid].mall.name}}</div>
         <div class="col-md-2 text-right"><strong>{{((demand.sum / 100) | currency:'') + 'р.'}}</strong></div>
         <!--div id="{{ good.productCode }}" class="row table-row"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
             <div class="col-md-1">{{good.productCode}}</div>

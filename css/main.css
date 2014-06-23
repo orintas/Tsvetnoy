@@ -84,3 +84,20 @@
     max-width: 100px;
     margin-top: -7px;
 }
+
+.animate-show {
+    opacity:1;
+    padding:10px;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+    -webkit-transition:all linear 0.1s;
+    transition:all linear 0.1s;
+}
+
+.animate-show.ng-hide {
+    opacity:0;
+    padding:0 10px;
+}
+
