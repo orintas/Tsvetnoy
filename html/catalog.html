@@ -52,9 +52,128 @@
                                 Условия: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Условия предоставления выбранной скидки"></span>
                             </h5>
                         </div>
-                        <div class="col-sm-4 text-center" ng-hide="discont < 10"><h5><a href="/brandshop.html">Магазин "Цветной"&nbsp;<span class="glyphicon glyphicon-registration-mark"></span></a><span ng-hide="discont < 15"> и {{ smallBonus | currency:'' }} <a href="/bonus.html">бонусов</a></span></h5></div>
+                        <div class="col-sm-4 text-center" ng-hide="discont < 10"><h5>Магазин <a style="cursor: pointer;" data-toggle="modal" data-target="#tsvetnoyModal">"Цветной"</a>&nbsp;<span class="glyphicon glyphicon-registration-mark"></span><span ng-hide="discont < 15"> и {{ smallBonus | currency:'' }} <a style="cursor: pointer;" data-toggle="modal" data-target="#bonusModal">бонусов</a></span></h5></div>
                         <div class="col-sm-2 text-center" ng-hide="discont < 10"><h5>ИЛИ</h5></div>
-                        <div class="col-sm-4 text-center"><h5>{{ bigBonus| currency:'' }} <a href="/bonus.html">бонусов</a></h5></div>
+                        <div class="col-sm-4 text-center"><h5>{{ bigBonus| currency:'' }} <a style="cursor: pointer;" data-toggle="modal" data-target="#bonusModal">бонусов</a></h5></div>
+                        <!-- Modal bonus -->
+                        <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="bonusLabel">Бонусная система</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Мы предлагаем Вам выгодную и удобную систему бонусов.
+                                            Первые бонусы Вы получаете уже при закупке в 40 000 рублей.
+                                            Дальше бонусы только растут – см. таблицу.
+                                        </p>
+                                        <p>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Объем закупки в месяц</th>
+                                                <th>Размер бонуса</th>
+                                                <th>Ваша выгода</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>от 40 000 рублей</td>
+                                                <td>5%</td>
+                                                <td>от 2000 рублей</td>
+                                            </tr>
+                                            <tr>
+                                                <td>от 60 000 рублей</td>
+                                                <td>10%</td>
+                                                <td>от 6000 рублей</td>
+                                            </tr>
+                                            <tr>
+                                                <td>от 80 000 рублей</td>
+                                                <td>15%</td>
+                                                <td>от 12 000 рублей</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </p>
+                                        <p>
+                                            Вы можете использовать полученные бонусы, так как Вам удобно.
+                                            Например, взять товар на сумму бонусов без дополнительных вложений.
+                                            Допустим, в предыдущем месяце Вам начислено 2000 бонусных рублей.
+                                            На эту сумму в текущем месяце можно взять около 20 картин размером 10х15 см. без дополнительных вложений.
+                                            Или, Вы можете закупить товар на большую сумму, например, на 10 000 рублей, но фактически заплатить только 8000 рублей. Оставшуюся сумму погасить за счет 2000 бонусных рублей.
+                                        </p>
+                                        <p>
+                                            Бонусы автоматически начисляются в последний день текущего месяца, их размер определяется суммарной закупкой товара за текущий месяц.
+                                            Например, если Вы сделали четыре закупки в месяц по 20 000 рублей каждая на общую сумму 80 000рублей, по итогам месяца Вам будет начислено 15% бонусов в размере 12 000 рублей.
+                                        </p>
+                                        <p>
+                                            Обратите внимание, бонусы начисляются только на фактически заплаченные деньги. Бонусы на бонусы не начисляются. Например, Вы сделали закупку на 100 000 рублей, 80 000 рублей оплатили деньгами и 20 000 рублей бонусами за предыдущий месяц. То, бонусы будут начислены только на 80 000 рублей.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="../img/clacks.png" height="20px" style="text-align: left;"/></div>
+                                            <div class="col-md-10"><button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal tsvetnoy-->
+                        <div class="modal fade" id="tsvetnoyModal" tabindex="-1" role="dialog" aria-labelledby="tsvetnoyLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="tsvetnoyLabel">Франшиза «Магазин «Цветной»</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            При открытии даже одного магазина «Цветной» Вы, как наш франчайзи получаете ряд дополнительных привилегий.
+                                        </p>
+                                        <p>
+                                            <ul>
+                                                <li>
+                                                    Постоянную скидку в 10% дополнительно к скидкам бонусной программы.
+                                                </li>
+                                                <li>
+                                                    Система оптимизации бизнеса «Цветной.pro»
+                                                </li>
+                                                <li>
+                                                    Бесплатный аудит Вашего бизнеса (маркетинг, управление персоналом).
+                                                </li>
+                                                <li>
+                                                    Бесплатная реклама Вашего магазина на нашем сайте.
+                                                </li>
+                                                <li>
+                                                    Бесплатные консультации по любым вопросам Вашего бизнеса.
+                                                </li>
+                                                <li>
+                                                    Возможность продать Ваш магазин «Цветной» с нашей гарантией.
+                                                </li>
+                                            </ul>
+                                        </p>
+                                        <p>
+                                            Что необходимо для открытия магазина «Цветной».
+                                            <ul>
+                                                <li>Наличие вывески с фирменным логотипом «Цветной». </li>
+                                                <li>Согласованное с нами визуальное оформление магазина.</li>
+                                                <li>Участие в промо-акциях сети «Цветной». </li>
+                                                <li>Подключение к системе «Цветной.pro»: автоматизированной системы учета товаров «МойСклад», системы дистанционного видеонаблюдения Ivideon, эквайринга (системы приема к оплате пластиковых карт).</li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="../img/clacks.png" height="20px" style="text-align: left;"/></div>
+                                            <div class="col-md-10"><button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
