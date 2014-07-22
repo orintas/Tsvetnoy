@@ -27,7 +27,7 @@ angular.module('app', ['mainMdl', 'catalogMdl', 'sendMailMdl', 'shopsMdl']).
       };
    }).
    constant('config', {
-      phone: "+7 (920) 685 89 33",
+      phone: "+7 (499) 550 00 16",
       info_mail: "info",
       domain: "protsvetnoy.com"
    }).
