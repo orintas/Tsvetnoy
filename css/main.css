@@ -101,3 +101,11 @@
     padding:0 10px;
 }
 
+hr {
+    border-top: 1px solid #BBBBBB;
+}
+
+.page-header {
+    border-bottom: 1px solid #BBBBBB;
+}
+
