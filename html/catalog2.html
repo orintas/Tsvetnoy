@@ -1,0 +1,260 @@
+<div class="container angular" ng-controller="catalogCtrl">
+    <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-12">
+            <h2>Каталог</h2>
+        </div>
+        <div class="col-md-3 col-md-push-7 col-sm-6 col-sm-push-0 col-xs-12 col-xs-push-0 margin-top-vertical">
+            <form role="form" class="form-inline" ng-submit="searchCtl()">
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-model="search" ng-blur="searchCtl()" ng-disabled="isLoading" placeholder="Название или артикул">
+                    <span class="input-group-btn"><button type="search" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
+                </p>
+            </form>
+        </div>
+        <div class="col-md-7 col-md-pull-3 col-sm-12 col-sm-pull-0 col-xs-12 col-xs-pull-0 margin-top-vertical">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-danger" ng-click="discontCalcVisible = !discontCalcVisible"> Скидка: <strong>{{ discont }}%</strong></a>
+                <a class="btn btn-success" ng-click="orderFormVisible = !orderFormVisible"> Заказ: <strong>{{ orderSum }} руб</strong></a>
+            </div>
+                <!--div class="btn-group">
+                    <button type="button" class="btn btn-warning"> Фильтр: <strong>*</strong></button>
+                </div-->
+        </div>
+
+    </div>
+    <div class="row margin-top-vertical" ng-controller="calculatorCtrl" ng-show="discontCalcVisible">
+        <div class="col-md-12">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    Калькулятор скидки<button type="button" class="close" aria-hidden="true" ng-click="$parent.discontCalcVisible = false">&times;</button>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                            <h5>
+                                Сумма: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Предполагаемая сумма заказа"></span>
+                            </h5>
+                        </div>
+                        <div class="col-xs-6 col-xs-push-0 col-sm-2 col-sm-push-8 text-center"><h5>{{ orderSum | currency:''}}р</h5></div>
+                        <div class="col-xs-10 col-xs-offset-1 col-xs-pull-0 col-sm-8 col-sm-pull-2 col-sm-offset-0 margin-top-vertical2" id="orderSumSlider" ></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                            <h5>
+                                Cкидка: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Желаемый размер скидки"></span>
+                            </h5>
+                        </div>
+                        <div class="col-xs-6 col-xs-push-0 col-sm-2 col-sm-push-8 text-center"><h5>{{ discont }}%</h5></div>
+                        <div class="col-xs-10 col-xs-offset-1 col-xs-pull-0 col-sm-8 col-sm-pull-2 col-sm-offset-0 margin-top-vertical2" id="discontSlider" ></div>
+                    </div>
+                    <div class="row" ng-hide="!discont">
+                        <div class="col-sm-2">
+                            <h5>
+                                Условия: <span class="glyphicon glyphicon-question-sign text-primary calculatorTooltip" data-toggle="tooltip" title data-placement="right" data-original-title="Условия предоставления выбранной скидки"></span>
+                            </h5>
+                        </div>
+                        <div class="col-sm-4 text-center" ng-hide="discont < 10"><h5>Магазин <a style="cursor: pointer;" data-toggle="modal" data-target="#tsvetnoyModal">"Цветной"</a>&nbsp;<span class="glyphicon glyphicon-registration-mark"></span><span ng-hide="discont < 15"> и {{ smallBonus | currency:'' }} <a style="cursor: pointer;" data-toggle="modal" data-target="#bonusModal">бонусов</a></span></h5></div>
+                        <div class="col-sm-2 text-center" ng-hide="discont < 10"><h5>ИЛИ</h5></div>
+                        <div class="col-sm-4 text-center"><h5>{{ bigBonus| currency:'' }} <a style="cursor: pointer;" data-toggle="modal" data-target="#bonusModal">бонусов</a></h5></div>
+                        <!-- Modal bonus -->
+                        <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="bonusLabel">Бонусная система</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Мы предлагаем Вам выгодную и удобную систему бонусов.
+                                            Первые бонусы Вы получаете уже при закупке в 40 000 рублей.
+                                            Дальше бонусы только растут – см. таблицу.
+                                        </p>
+                                        <p>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Объем закупки в месяц</th>
+                                                <th>Размер бонуса</th>
+                                                <th>Ваша выгода</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>от 40 000 рублей</td>
+                                                <td>5%</td>
+                                                <td>от 2000 рублей</td>
+                                            </tr>
+                                            <tr>
+                                                <td>от 60 000 рублей</td>
+                                                <td>10%</td>
+                                                <td>от 6000 рублей</td>
+                                            </tr>
+                                            <tr>
+                                                <td>от 80 000 рублей</td>
+                                                <td>15%</td>
+                                                <td>от 12 000 рублей</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </p>
+                                        <p>
+                                            Вы можете использовать полученные бонусы, так как Вам удобно.
+                                            Например, взять товар на сумму бонусов без дополнительных вложений.
+                                            Допустим, в предыдущем месяце Вам начислено 2000 бонусных рублей.
+                                            На эту сумму в текущем месяце можно взять около 20 картин размером 10х15 см. без дополнительных вложений.
+                                            Или, Вы можете закупить товар на большую сумму, например, на 10 000 рублей, но фактически заплатить только 8000 рублей. Оставшуюся сумму погасить за счет 2000 бонусных рублей.
+                                        </p>
+                                        <p>
+                                            Бонусы автоматически начисляются в последний день текущего месяца, их размер определяется суммарной закупкой товара за текущий месяц.
+                                            Например, если Вы сделали четыре закупки в месяц по 20 000 рублей каждая на общую сумму 80 000рублей, по итогам месяца Вам будет начислено 15% бонусов в размере 12 000 рублей.
+                                        </p>
+                                        <p>
+                                            Обратите внимание, бонусы начисляются только на фактически заплаченные деньги. Бонусы на бонусы не начисляются. Например, Вы сделали закупку на 100 000 рублей, 80 000 рублей оплатили деньгами и 20 000 рублей бонусами за предыдущий месяц. То, бонусы будут начислены только на 80 000 рублей.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="../img/clacks.png" height="20px" style="text-align: left;"/></div>
+                                            <div class="col-md-10"><button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal tsvetnoy-->
+                        <div class="modal fade" id="tsvetnoyModal" tabindex="-1" role="dialog" aria-labelledby="tsvetnoyLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="tsvetnoyLabel">Франшиза «Магазин «Цветной»</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            При открытии даже одного магазина «Цветной» Вы, как наш франчайзи получаете ряд дополнительных привилегий.
+                                        </p>
+                                        <p>
+                                            <ul>
+                                                <li>
+                                                    Постоянную скидку в 10% дополнительно к скидкам бонусной программы.
+                                                </li>
+                                                <li>
+                                                    Система оптимизации бизнеса «Цветной.pro»
+                                                </li>
+                                                <li>
+                                                    Бесплатный аудит Вашего бизнеса (маркетинг, управление персоналом).
+                                                </li>
+                                                <li>
+                                                    Бесплатная реклама Вашего магазина на нашем сайте.
+                                                </li>
+                                                <li>
+                                                    Бесплатные консультации по любым вопросам Вашего бизнеса.
+                                                </li>
+                                                <li>
+                                                    Возможность продать Ваш магазин «Цветной» с нашей гарантией.
+                                                </li>
+                                            </ul>
+                                        </p>
+                                        <p>
+                                            Что необходимо для открытия магазина «Цветной».
+                                            <ul>
+                                                <li>Наличие вывески с фирменным логотипом «Цветной». </li>
+                                                <li>Согласованное с нами визуальное оформление магазина.</li>
+                                                <li>Участие в промо-акциях сети «Цветной». </li>
+                                                <li>Подключение к системе «Цветной.pro»: автоматизированной системы учета товаров «МойСклад», системы дистанционного видеонаблюдения Ivideon, эквайринга (системы приема к оплате пластиковых карт).</li>
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-2"><img src="../img/clacks.png" height="20px" style="text-align: left;"/></div>
+                                            <div class="col-md-10"><button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-vertical" ng-controller="orderCtrl" ng-show="orderFormVisible">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Заказ<button type="button" class="close" aria-hidden="true" ng-click="$parent.orderFormVisible = false">&times;</button>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-sm hidden-xs" ng-hide="isLoading">
+        <div class="col-md-1"><strong>#</strong></div>
+        <div class="col-md-7 col-md-offset-1"><strong>Название</strong></div>
+        <div class="col-md-2 text-right"><!--img src="http://img.artlebedev.ru/tools/technogrette/html/rouble/ruble.gif" height="15px"/--><strong>Стоимость</strong></div>
+        <div class="col-md-1 text-right"><!--img src="http://img.artlebedev.ru/tools/technogrette/html/rouble/ruble.gif" height="15px"/--><strong>Кол-во</strong></div>
+    </div>
+    <div infinite-scroll="loadGoods()" infinite-scroll-distance="2">
+        <div ng-repeat="good in displayGoods | filter:searchText">
+            <div id="{{ good.productCode }}" class="row table-row cursor" ng-hide="$parent.preview == good.productCode" ng-mouseover="$parent.visibleOrderButton = good.productCode" ng-init="amount = 0">
+                <div class="col-md-1 col-sm-1 col-xs-2" ng-click="$parent.preview = good.productCode" >{{good.productCode}}</div>
+                <div class="col-md-1 col-sm-2 col-xs-4" ng-click="$parent.preview = good.productCode" ><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
+                <div class="col-md-7 col-sm-4 col-xs-6" ng-click="$parent.preview = good.productCode" >{{good.name}}<br>{{ getProperty(good, "Размер") }}</div>
+                <div class="col-md-2 col-sm-2 col-xs-6 text-right" ng-click="$parent.preview = good.productCode" >
+                    <small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}
+                </div>
+                <div class="col-md-1 col-sm-3 col-xs-6 text-center">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <div class="input-group text-center">
+                                <input type="number" class="form-control" ng-model="amount" min="0" max="20">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row table-row" ng-click="$parent.preview = 0" ng-show="$parent.preview == good.productCode">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <img class="thumbnail" ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" style="display:table-cell; vertical-align:middle; text-align:center; padding: 5px;" width="270px">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <dl class="dl-horizontal">
+                        <dt>Артикул</dt>
+                        <dd>{{good.productCode}}</dd>
+                        <dt>Название</dt>
+                        <dd>{{good.name}}</dd>
+                        <dt ng-repeat-start="property in good.properties track by $index">{{ entities.entity[property].name }}</dt>
+                        <dd ng-repeat-end>{{ entities.entity[property].value }}</dd>
+                    </dl>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <dl>
+                        <dt>Комплектация</dt>
+                        <dd>
+                            <ul class="list-unstyled">
+                                <li><span class="glyphicon glyphicon-plus"></span> Холст на подрамнике</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Акриловые краски</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Контрольный лист</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Три кисти</li>
+                                <li><span class="glyphicon glyphicon-plus"></span> Крепеж для подвешивания картины</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-lg-2 col-md-8 col-sm-12 col-xs-12 text-right">
+                    <span><strong>Цена без скидки </strong><br>{{((good.salePrice / 100) | currency:'') + 'р.'}}</span><br>
+                    <span ng-hide="discont == 0"><strong>Скидка ({{ discont }}%) </strong><br>{{((good.salePrice / 100) * (discont / 100) | currency:'') + 'р.'}}</span><br>
+                    <span ng-hide="discont == 0"><strong>Итого </strong><br>{{((good.salePrice / 100) * ((100 - discont) / 100) | currency:'') + 'р.'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

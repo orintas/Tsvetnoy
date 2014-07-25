@@ -39,9 +39,15 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       });
       $('.calculatorTooltip').tooltip();
    }]).
+   controller('orderCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+
+   }]).
    controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'AsyncLoad', function($scope, Goods, Entities, AsyncLoad) {
       $scope.displayGoods = [];
       $scope.preview = 0;
+      $scope.orderSum = 0;
+      $scope.orderFormVisible = false;
+      $scope.visibleOrderButton = 0;
       $scope.discontCalcVisible = false;
       var goodsIsLoaded = false;
 

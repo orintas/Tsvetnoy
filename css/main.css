@@ -76,6 +76,25 @@
     border-bottom-color: #d2322d;
 }
 
+.panel-success {
+    border-color: #4cae4c;
+}
+
+.panel-success > .panel-heading {
+    color: #ffffff;
+    background-color: #4cae4c;
+    border-color: #4cae4c;
+}
+
+.panel-success > .panel-heading + .panel-collapse .panel-body {
+    border-top-color: #4cae4c;
+}
+
+.panel-success > .panel-footer + .panel-collapse .panel-body {
+    border-bottom-color: #4cae4c;
+}
+
+
 .gray {
     color: #808080;
 }
@@ -107,5 +126,16 @@ hr {
 
 .page-header {
     border-bottom: 1px solid #BBBBBB;
+}
+
+.pager {
+    padding: 0;
+    margin: 0;
+}
+
+.amount {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12pt;
 }
 
