@@ -1,7 +1,10 @@
 <div class="container angular" ng-controller="catalogCtrl">
     <div class="row">
         <div class="col-md-2 col-sm-6 col-xs-12">
-            <h2>Каталог</h2>
+            <h2>
+                Каталог
+                <!--button type="button" class="btn btn-default" filename="catalog.csv"><span class="glyphicon glyphicon-download-alt"></span></button-->
+            </h2>
         </div>
         <div class="col-md-3 col-md-push-7 col-sm-6 col-sm-push-0 col-xs-12 col-xs-push-0 margin-top-vertical">
             <form role="form" class="form-inline" ng-submit="searchCtl()">
@@ -14,6 +17,7 @@
         <div class="col-md-7 col-md-pull-3 col-sm-12 col-sm-pull-0 col-xs-12 col-xs-pull-0 margin-top-vertical">
             <div class="btn-group btn-group-justified">
                 <a class="btn btn-danger" ng-click="discontCalcVisible = !discontCalcVisible"> Скидка: <strong>{{ discont }}%</strong></a>
+                <a class="btn btn-success" ng-click="showOnlyStock = !showOnlyStock"> <span ng-hide="showOnlyStock">Только в наличии</span><span ng-show="showOnlyStock">Показать все</span></a>
             </div>
                 <!--div class="btn-group">
                     <button type="button" class="btn btn-warning"> Фильтр: <strong>*</strong></button>
@@ -185,12 +189,12 @@
         <div class="col-md-2 text-right" ng-hide="isLoading"><!--img src="http://img.artlebedev.ru/tools/technogrette/html/rouble/ruble.gif" height="15px"/--><strong>Стоимость</strong></div>
     </div>
     <div infinite-scroll="loadGoods()" infinite-scroll-distance="2">
-        <div ng-repeat="good in displayGoods | filter:searchText">
+        <div ng-repeat="good in displayGoods | filter:searchText" ng-hide="showOnlyStock && ((stock[good.productCode] < 1) || !stock[good.productCode])">
             <div id="{{ good.productCode }}" class="row table-row cursor"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
-                <div class="col-md-1">{{good.productCode}}</div>
+                <div class="col-md-1">{{good.productCode}} <small class="text-muted">Остаток:&nbsp;{{stock[good.productCode] | number:0}}</small></div>
                 <div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
-                <div class="col-md-7 col-xs-6">{{good.name}}<br>{{ getProperty(good, "Размер") }}</div>
-                <div class="col-md-3 col-xs-3 text-right"><small class="text-muted">{{((good.salePrice / 100) | currency:'') + 'р.'}}</small><br>{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}</div>
+                <div class="col-md-7 col-xs-6">{{good.name}}<br><small class="text-muted">Размер:&nbsp;{{ getProperty(good, "Размер") }}</small></div>
+                <div class="col-md-3 col-xs-3 text-right">{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}<br><small class="text-muted"><s>{{((good.salePrice / 100) | currency:'') + 'р.'}}</s></small></div>
             </div>
             <div class="row table-row" ng-click="$parent.preview = 0" ng-show="$parent.preview == good.productCode">
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -204,6 +208,8 @@
                         <dd>{{good.name}}</dd>
                         <dt ng-repeat-start="property in good.properties track by $index">{{ entities.entity[property].name }}</dt>
                         <dd ng-repeat-end>{{ entities.entity[property].value }}</dd>
+                        <dt>Остаток</dt>
+                        <dd>{{stock[good.productCode] | number:0}} шт.</dd>
                     </dl>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

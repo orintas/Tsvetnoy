@@ -30,4 +30,7 @@ angular.module('service', ['ngResource']).
    }]).
    factory('Shops', ['resourceFactory', function (resourceFactory) {
       return resourceFactory.create('shops');
+   }]).
+   factory('Stock', ['resourceFactory', function (resourceFactory) {
+      return resourceFactory.create('stock');
    }]);

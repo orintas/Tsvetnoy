@@ -42,16 +42,18 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
    controller('orderCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
    }]).
-   controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'AsyncLoad', function($scope, Goods, Entities, AsyncLoad) {
+   controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'Stock', 'AsyncLoad', function($scope, Goods, Entities, Stock, AsyncLoad) {
       $scope.displayGoods = [];
       $scope.preview = 0;
       $scope.orderSum = 0;
       $scope.orderFormVisible = false;
       $scope.visibleOrderButton = 0;
       $scope.discontCalcVisible = false;
+      $scope.showOnlyStock = true;
       var goodsIsLoaded = false;
 
       AsyncLoad.load('entities', $scope, Entities);
+      AsyncLoad.load('stock', $scope, Stock);
 
       var addDisplayGoods = function(beginIndex, count) {
          for (var i = beginIndex; i < beginIndex + count; i++) {

@@ -1,11 +1,16 @@
 <div class="container angular" ng-controller="catalogCtrl">
     <div class="row">
         <div class="col-md-2 col-sm-6 col-xs-12">
-            <h2>Каталог</h2>
+            <h2>
+                Каталог
+                <a class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span></a>
+            </h2>
+
         </div>
         <div class="col-md-3 col-md-push-7 col-sm-6 col-sm-push-0 col-xs-12 col-xs-push-0 margin-top-vertical">
             <form role="form" class="form-inline" ng-submit="searchCtl()">
                 <p class="input-group">
+
                     <input type="text" class="form-control" ng-model="search" ng-blur="searchCtl()" ng-disabled="isLoading" placeholder="Название или артикул">
                     <span class="input-group-btn"><button type="search" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button></span>
                 </p>

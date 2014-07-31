@@ -55,7 +55,7 @@ class MoySkladService {
 
     public function getStock()
     {
-        return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::SKLAD_ID, "GET"));
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::MAIN_SKLAD_UUID, "GET"));
     }
 
     public function getGoods()
