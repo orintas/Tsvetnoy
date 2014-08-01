@@ -49,7 +49,7 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
       $scope.orderFormVisible = false;
       $scope.visibleOrderButton = 0;
       $scope.discontCalcVisible = false;
-      $scope.showOnlyStock = true;
+      $scope.showOnlyStock = false;
       var goodsIsLoaded = false;
 
       AsyncLoad.load('entities', $scope, Entities);
