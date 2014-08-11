@@ -191,7 +191,9 @@
     <div infinite-scroll="loadGoods()" infinite-scroll-distance="2">
         <div ng-repeat="good in displayGoods | filter:searchText" ng-hide="showOnlyStock && ((stock[good.productCode] < 1) || !stock[good.productCode])">
             <div id="{{ good.productCode }}" class="row table-row cursor"   ng-click="$parent.preview = good.productCode" ng-hide="$parent.preview == good.productCode">
-                <div class="col-md-1">{{good.productCode}} <small class="text-muted">Остаток:&nbsp;{{stock[good.productCode] | number:0}}</small></div>
+                <div class="col-md-1">
+                    {{good.productCode}}
+                    <small class="text-muted">Остаток:&nbsp;{{getStock(good.productCode) | number:0}}</small></div>
                 <div class="col-md-1 col-xs-3"><img ng-src="{{'http://art-elite.ru/upload/moy_sklad_photo/' + good.productCode + '.jpg' | lowercase}}" alt="{{ good.productCode }}" width="40px" height="40px" class="icon"></div>
                 <div class="col-md-7 col-xs-6">{{good.name}}<br><small class="text-muted">Размер:&nbsp;{{ getProperty(good, "Размер") }}</small></div>
                 <div class="col-md-3 col-xs-3 text-right">{{((good.salePrice / 100) * ((100 - discont)/100) | currency:'') + 'р.'}}<br><small class="text-muted"><s>{{((good.salePrice / 100) | currency:'') + 'р.'}}</s></small></div>
@@ -209,7 +211,7 @@
                         <dt ng-repeat-start="property in good.properties track by $index">{{ entities.entity[property].name }}</dt>
                         <dd ng-repeat-end>{{ entities.entity[property].value }}</dd>
                         <dt>Остаток</dt>
-                        <dd>{{stock[good.productCode] | number:0}} шт.</dd>
+                        <dd>{{getStock(good.productCode) | number:0}} шт.</dd>
                     </dl>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

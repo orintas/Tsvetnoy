@@ -101,4 +101,11 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
          good.properties.forEach(checkProperty);
          return result;
       };
+
+      $scope.getStock = function (productCode) {
+         if ($scope.stock[productCode] && $scope.stock[productCode] > 0) {
+           return $scope.stock[productCode];
+         }
+         return 0;
+      };
    }]);
