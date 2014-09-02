@@ -14,7 +14,6 @@ foreach ($goods->attributes() as $name => $value) {
 $codes = array();
 $resultGoods = array();
 foreach ($goods as $good) {
-	if ((string)$good['parentUuid'] != MoySkladConfig::WARE_GROUP_MENGLEI_UUID) continue;
 	$uuid = (string)$good->uuid;
 	$resultGoods[$uuid] = array();
 	$resultGoods[$uuid]['name'] = (string)$good['name'];

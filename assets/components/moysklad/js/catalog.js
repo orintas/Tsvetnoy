@@ -4,8 +4,7 @@
  * Created by Orintas on 04.02.14.
  */
 angular.module('catalogMdl', ['service', 'infinite-scroll']).
-   controller('calculatorCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-      $rootScope.discont = 10;
+   /*controller('calculatorCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
       $scope.orderSum = 20000;
       $scope.smallBonus = 2450;
       $scope.bigBonus = 235522;
@@ -38,11 +37,12 @@ angular.module('catalogMdl', ['service', 'infinite-scroll']).
          slide: orederSumChange
       });
       $('.calculatorTooltip').tooltip();
-   }]).
+   }]).*/
    controller('orderCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
    }]).
    controller('catalogCtrl', ['$scope', 'Goods', 'Entities', 'Stock', 'AsyncLoad', function($scope, Goods, Entities, Stock, AsyncLoad) {
+      $scope.discont = 10;
       $scope.displayGoods = [];
       $scope.preview = 0;
       $scope.orderSum = 0;

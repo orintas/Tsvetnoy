@@ -9,7 +9,6 @@ $stocks = $service->getStock();
 
 $result = array();
 foreach ($stocks as $stock) {
-	if ((string)$stock['parentUuid'] != MoySkladConfig::WARE_GROUP_MENGLEI_UUID) continue;
 	$productCode = (string)$stock['productCode'];
 	$result[$productCode] = (string)$stock['stock'];
 }

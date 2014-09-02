@@ -55,12 +55,12 @@ class MoySkladService {
 
     public function getStock()
     {
-        return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::MAIN_SKLAD_UUID, "GET"));
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/stock/xml?storeId=" . MoySkladConfig::MAIN_SKLAD_UUID . "&filter=parentUuid%3D" . MoySkladConfig::WARE_GROUP_MENGLEI_UUID, "GET"));
     }
 
     public function getGoods()
     {
-        return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/Good/list", "GET"));
+        return new SimpleXMLElement($this->sendRequest("/exchange/rest/ms/xml/Good/list?filter=parentUuid%3D" . MoySkladConfig::WARE_GROUP_MENGLEI_UUID, "GET"));
     }
 
     public function getEntities()

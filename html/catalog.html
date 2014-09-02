@@ -16,8 +16,28 @@
         </div>
         <div class="col-md-7 col-md-pull-3 col-sm-12 col-sm-pull-0 col-xs-12 col-xs-pull-0 margin-top-vertical">
             <div class="btn-group btn-group-justified">
-                <a class="btn btn-danger" ng-click="discontCalcVisible = !discontCalcVisible"> Скидка: <strong>{{ discont }}%</strong></a>
-                <a class="btn btn-success" ng-click="showOnlyStock = !showOnlyStock"> <span ng-hide="showOnlyStock">Только в наличии</span><span ng-show="showOnlyStock">Показать все</span></a>
+                <div class="btn-group">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        Скидка: <strong>{{ discont }}%</strong>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="discont = 0">Скидка 0%&nbsp;&nbsp;&nbsp;от 10 000р.</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="discont = 5">Скидка 5%&nbsp;&nbsp;&nbsp;от 30 000р.</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="discont = 10">Скидка 10% от 50 000р.</a></li>
+                    </ul>
+                </div>
+                <!--button type="button" class="btn btn-danger" ng-click="discontCalcVisible = !discontCalcVisible"> Скидка: <strong>{{ discont }}%</strong></button-->
+                <div class="btn-group">
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span ng-show="showOnlyStock">Только в наличии</span><span ng-hide="showOnlyStock">Показать все</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="showOnlyStock = true">Только в наличии</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="showOnlyStock = false">Показать все</a></li>
+                    </ul>
+                </div>
             </div>
                 <!--div class="btn-group">
                     <button type="button" class="btn btn-warning"> Фильтр: <strong>*</strong></button>
@@ -25,7 +45,7 @@
         </div>
 
     </div>
-    <div class="row margin-top-vertical" ng-controller="calculatorCtrl" ng-show="discontCalcVisible">
+    <!--div class="row margin-top-vertical" ng-controller="calculatorCtrl" ng-show="discontCalcVisible">
         <div class="col-md-12">
             <div class="panel panel-red">
                 <div class="panel-heading">
@@ -60,7 +80,7 @@
                         <div class="col-sm-2 text-center" ng-hide="discont < 10"><h5>ИЛИ</h5></div>
                         <div class="col-sm-4 text-center"><h5>{{ bigBonus| currency:'' }} <a style="cursor: pointer;" data-toggle="modal" data-target="#bonusModal">бонусов</a></h5></div>
                         <!-- Modal bonus -->
-                        <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusLabel" aria-hidden="true">
+                        <!--div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -126,7 +146,7 @@
                             </div>
                         </div>
                         <!-- Modal tsvetnoy-->
-                        <div class="modal fade" id="tsvetnoyModal" tabindex="-1" role="dialog" aria-labelledby="tsvetnoyLabel" aria-hidden="true">
+                        <!--div class="modal fade" id="tsvetnoyModal" tabindex="-1" role="dialog" aria-labelledby="tsvetnoyLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -182,7 +202,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
     <div class="row hidden-sm hidden-xs">
         <div class="col-md-1" ng-hide="isLoading"><strong>#</strong></div>
         <div class="col-md-8 col-md-offset-1" ng-hide="isLoading"><strong>Название</strong></div>
